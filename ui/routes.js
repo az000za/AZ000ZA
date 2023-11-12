@@ -1,0 +1,174 @@
+class Routes {
+    /**
+     * bar: is the sidebar nav that transforms the messages & forms
+     * 
+     * messages: is the main message window that displays all of the messages from the nodes.
+     * 
+     * forms: is the input forms that get chosen by each nav selection.
+     * 
+     */
+    routes = [];
+    constructor(app){
+        this.routes = [];
+        this.buildRoutes(app);
+    }
+    buildRoutes(app){
+        const Route = app.modules.Route;
+        const uiNode = app.modules.UINode;
+        const routes = this.routePresets()
+        for (let key in routes) {
+            console.log(Route);
+            this.routes.push(
+                new Route(
+                    {
+                        path: key,
+                        guard: {},
+                        populateUINodes: [
+                            new uiNode({
+                                name: "ChatWindow",
+                                module: app.modules.ChatWindow,
+                                managedBY: "App",
+                                data: {},
+                            }),
+                            new uiNode({
+                                name: "ChatConsole",
+                                module: app.modules.ChatConsole,
+                                managedBY: "ChatWindow",
+                                data:{},
+                            }),
+                            new uiNode({
+                                name: "bar",
+                                module: app.modules.ChatNavList,
+                                managedBY: "ChatConsole",
+                                data: {
+                                    messages: routes[key].bar
+                                },
+                            }),
+                            new uiNode({
+                                name: "console",
+                                module: app.modules.ChatConsoleMsgs,
+                                managedBY: "ChatConsole",
+                                data: {
+                                    messages: routes[key].messages,
+                                }
+                            }),
+                            new uiNode({
+                                name: "forms",
+                                module: app.modules.ChatConsoleDynamicForms,
+                                managedBy: "ChatConsole",
+                                data: {
+                                    forms: routes[key].forms
+                                }
+                            })
+                        ]
+                    }
+                ),
+            )
+        }
+    }
+    routePresets(){
+        return {    // front-end routes, they do not reflect the backend api's.
+            "/gate/new": {
+                bar: [
+
+                ],
+                messages: [
+                    
+                ],
+                forms: [    // id input area will be updated with these forms
+                    {
+                        name: "username",
+                        placeholder: "What is your user name",
+                        type: "text",
+                    },
+                    {
+                        name: "Email",
+                        placeholder: "What is the email you want associateed with this accoount",
+                        type: "email",
+                    },
+                    {
+                        name: "password",
+                        placeholder: "Use a unique password not associated with others",
+                        type: "password",
+                    },
+                    {
+                        name: "orgName",
+                        placeholder: "Name of the Organization",
+                        type: "text",
+                    },
+                    {
+                        name: "orgInviteLink",
+                        placeholder: "What is the unique invitation link for the organization",
+                        type: "text",
+                    }
+                ]
+            },
+            "/Chat": {
+                forms: [
+                    {
+                        name: "Chat w PPL & AI",
+                        type: "text",
+                    },
+                    {
+                        name: "Command the AI",
+                        type: "text",
+                    },
+                    {
+                        name: "Customize Page",
+                        type: "text",
+                    },
+                    {
+                        name: "Enter Context Here",
+                        type: "text",
+                    }
+                ]
+            },
+            "/Channels": {
+                forms: [
+
+                ]
+            },
+            "/Notifications": {
+                forms: [
+
+                ]
+            },
+            "/ConvoHist": {
+                forms: [
+
+                ]
+            },
+            "/Workers": {
+                forms: [
+
+                ]
+            },
+            "/Files":{
+                forms: [
+
+                ]
+            },
+            "/WorkFlows": {
+                forms: [
+
+                ]
+            },
+            "/PPL": {
+                forms: [
+
+                ]
+            },
+            "/Common": {
+                forms: [
+
+                ]
+            },
+            "/Niche": {
+
+            },
+            "/Recommended": {
+
+            }
+        };
+    }
+}

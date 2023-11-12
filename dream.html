@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CyberChat</title>
+    <meta charset="UTF-8">
+    <style>
+        /* Styles for the entire chat window layout */
+        .dblbrdr {
+            /* border: 2px double #a600a6;
+            box-shadow: inset 0px -20px 50px 10px white,
+                        0px 0px 5px 6px  rgb(69, 1, 1); */
+            border: 5px double #a600a6;
+        }
+        /* div {
+            border-width: 0;
+            border-style: solid;
+            border-color: #a600a6;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+        } */
+        .bubble-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .bubble {
+            background-color: #ff00ff; /* Neon Pink */
+            color: #000;
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 16px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .header {
+            background-color: #222;
+            color: #ff00ff; /* Neon Pink */
+            font-size: 24px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .channel-list {
+            background-color: #111;
+            padding: 10px;
+        }
+
+        .channel {
+            color: #ff00ff; /* Neon Pink */
+            padding: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .channel:hover {
+            background-color: #222;
+        }
+
+        .messages {
+            padding: 10px;
+            overflow-y: scroll;
+            max-height: calc(100vh - 200px);
+        }
+
+        .message {
+            padding: 5px;
+            border-bottom: 1px solid #333;
+        }
+
+        .username {
+            color: #00ff00; /* Neon Green */
+        }
+
+        .input-area {
+            background-color: #111;
+            padding: 10px;
+        }
+
+        .input-area input {
+            width: 100%;
+            background-color: #222;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            font-size: 16px;
+        /* }
+        .futrbrdr { */
+            /* Replace these values with the desired colors from the recommendations */
+            /* background-image: linear-gradient(to right, #4287f5, #ff46c9, #00ffdd); */
+            background-image: linear-gradient(to right, #0c1f39, #a2007a, #00a994);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-area input:focus {
+            outline: none;
+        }
+
+        .send-button {
+            background-color: #ff00ff; /* Neon Pink */
+            color: #000;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .send-button:hover {
+            background-color: #ff0099; /* Darker Neon Pink */
+        }
+
+        .sidebar {
+            background-color: #222;
+            color: #fff;
+            width: 200px;
+            padding: 10px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            cursor: pointer;
+            margin: 5px 0;
+        }
+
+        .sidebar .accordion-content {
+            display: none;
+            padding: 5px;
+        }
+
+    .chat-bubble {
+      position: fixed;
+      /* bottom: 20px; */
+      /* left: 20px; */
+      width: 300px;
+      border-radius: 20px;
+      background-color: #1a1a1a;
+      color: #00ff00;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: width 0.3s, height 0.3s;
+      z-index: 999;
+    }
+
+    .chat-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    .chat-content div {
+      margin-bottom: 10px;
+    }
+
+    .chat-content div:last-child {
+      margin-bottom: 0;
+    }
+
+    .chat-content div::before {
+      content: '> ';
+      color: #00ff00;
+    }
+
+    .chat-input {
+      padding: 10px;
+      border: none;
+      outline: none;
+      border-top: 1px solid #444;
+      width: 100%;
+      background-color: #111;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      resize: none;
+      overflow-y: hidden;
+    }
+
+    .hover-input {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      outline: none;
+      transition: background-color 0.3s;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    .hover-input:hover {
+      background-color: #222;
+    }
+
+    /* Styles for the fixed search bar */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f1f1f1;
+      z-index: 999;
+    }
+
+    #search-bar {
+      width: 50%;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .content {
+      margin-top: 50px;
+      padding: 20px;
+    }
+
+    /* Border highlight effect on hover */
+    .highlight-border {
+      border: 1px solid red;
+      border-radius: 5px;
+    }
+
+    /* Hide the chat bubble when minimized */
+    .chat-bubble-minimized {
+      width: 50px;
+      height: 50px;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .chat-bubble-minimized #chatMinimizeButton {
+      display: none;
+    }
+
+    .chat-bubble-minimized .chat-content {
+      display: none;
+    }
+
+    .chat-bubble-minimized .chat-input {
+      display: none;
+    }
+
+        /* ... (rest of the styles) ... */
+    </style>
+    <style>
+        /* Add style for highlighted elements */
+        .highlighted {
+            border: 1px solid red;
+        }
+
+        /* Style for the textarea at the top of the screen */
+        #elementHtmlContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* background-color: #333; */
+            color: #fff;
+            padding: 10px;
+            z-index: 1000;
+            font-family: "Courier New", monospace;
+            display: none;
+        }
+    </style>
+
+
+    <script>
+        // JavaScript to handle chat console, sidebars, and chat window toggling
+        document.addEventListener("DOMContentLoaded", function() {
+            // Bubble with the word "Hack"
+            const bubble = document.querySelector(".bubble");
+            const chatBubble = document.getElementById("chatBubble");
+            const chatMinimizeButton = document.getElementById("chatMinimizeButton");
+            const chatContent = document.getElementById("chatContent");
+            const chatInput = document.getElementById("chatInput");
+            const hiddenElements = document.querySelectorAll(".hidden");
+
+            bubble.addEventListener("click", function() {
+                hiddenElements.forEach(element => {
+                    element.classList.toggle("hidden");
+                });
+            });
+
+            // JavaScript to handle appending chat messages
+            const chatInputField = document.getElementById("chatInput");
+            const chatMessagesContainer = document.getElementById("chatContent");
+
+            // function appendChatMessage(message, isAI) {
+            //     const chatMessageElement = document.createElement("div");
+            //     chatMessageElement.classList.add("message");
+            //     chatMessageElement.textContent = isAI ? "AI: " + message : "You: " + message;
+            //     chatMessagesContainer.appendChild(chatMessageElement);
+            // }
+
+            // function sendChatMessage() {
+            //     const message = chatInputField.value;
+            //     if (message.trim() !== "") {
+            //         appendChatMessage(message, false);
+            //         chatInputField.value = "";
+            //         // Here you can include AI response logic and call appendChatMessage for the AI message
+            //     }
+            // }
+
+            // chatInputField.addEventListener("keypress", function(event) {
+            //     if (event.key === "Enter") {
+            //         sendChatMessage();
+            //     }
+            // });
+            // JavaScript to handle clickable accordions for sidebars
+            const accordionItems = document.querySelectorAll(".sidebar li");
+
+            accordionItems.forEach(item => {
+                item.addEventListener("click", function() {
+                    const accordionContent = this.querySelector(".accordion-content");
+                    if (accordionContent.style.display === "block") {
+                        accordionContent.style.display = "none";
+                    } else {
+                        accordionContent.style.display = "block";
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+<script>
+    // ... (rest of the existing script) ...
+
+    // Function to display entire HTML of the clicked element
+    function showElementHtml(event) {
+        const element = event.target;
+        const elementHtml = element.outerHTML;
+        const elementHtmlContainer = document.getElementById("elementHtmlContainer");
+        const textarea = elementHtmlContainer.querySelector("textarea");
+        const contextinput = document.getElementById("context-input");
+        textarea.value = elementHtml;
+        contextinput.value = elementHtml;
+        elementHtmlContainer.style.display = "block";
+
+        // Highlight the hovered element with red border
+        element.classList.add("highlighted");
+    }
+
+    // Function to hide the HTML container and remove the highlight
+    function hideElementHtml(event) {
+        const elementHtmlContainer = document.getElementById("elementHtmlContainer");
+        elementHtmlContainer.style.display = "none";
+
+        // Remove the highlight from the previously hovered element
+        const highlightedElements = document.querySelectorAll(".highlighted");
+        highlightedElements.forEach(element => {
+            element.classList.remove("highlighted");
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // ... (rest of the existing code) ...
+
+        // Add event listeners for hovering and clicking on elements
+        const allElements = document.querySelectorAll("*");
+        allElements.forEach(element => {
+            element.addEventListener("mouseover", showElementHtml);
+            element.addEventListener("mouseout", hideElementHtml);
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+    <div class="overlay1"></div>
+    <div class="overlay2"></div>
+
+
+    <style>
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <!-- <div class="video-container">
+        <iframe width="699" height="393" src="https://www.youtube.com/embed/F_QY0djGFTY" title="Glowing Neon Lights Disco VJ Loops 1Hour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div> -->
+
+    <!-- <div style="border:3px blue solid; border-radius: 100%;">
+        <div style="border:3px red solid; border-radius: 100%;"> -->
+            <style>
+                .centered {
+                    text-align: center; /* Center the input horizontally within the container div */
+                    margin-top: 20px; /* Adjust the margin-top value to create some space between earth and the input */
+                }
+                #searchInput {
+                    width: 100px;
+                    height: 12px;
+                    position: absolute;
+                }
+            </style>
+            <style>
+                .searchResult {
+                    margin-bottom: 10px;
+                    display: block;
+                    border: 0px none none;
+                    font-size: 20px;
+                }
+            </style>
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+                /* body {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background: #000;
+                } */
+                #earth {
+                    position: relative;
+                    width: 160px;
+                    height: 160px;
+                    border-radius: 50%;
+                    background: black url("https://i.imgur.com/Qk4UXcU.png");
+                    background-size: cover;
+                    box-shadow: inset 0px -20px 50px 10px black/*#00ffff80*/,
+                        0px 0px 30px 6px #00ffff70;
+                    transform-style: preserve-3d;
+                    transform: rotate(20deg);
+                    animation: rotate 150s linear infinite;
+                }
+                @keyframes rotate {
+                    0% {
+                        background-position: 0 0;
+                    }
+
+                    100% {
+                        background-position: 530px 0;
+                    }
+                }
+            </style>
+            <style>
+                /* Styles for the search input */
+                #searchNet {
+                    position: relative;
+                    width: 300px;
+                }
+        
+                #searchInput {
+                    margin: auto;
+                    width: 60%;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 20px;
+                    font-size: 16px;
+                    outline: none;
+                }
+        
+                #searchInput::placeholder {
+                    color: #888;
+                }
+        
+                #searchInput:focus {
+                    border-color: #4285f4;
+                    box-shadow: 0 0 8px 0 rgba(66, 133, 244, 0.4);
+                }
+        
+                /* Styles for the search button (optional) */
+                #searchButton {
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background-color: #4285f4;
+                    color: #fff;
+                    padding: 8px 12px;
+                    border: none;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+        
+                #searchButton:hover {
+                    background-color: #1a73e8;
+                }
+            </style>
+            <style>
+                /* .circle-element:before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    transform-style: preserve-3d;
+                } */
+                /* If you're using Font Awesome 4.x icons, you can use this CSS */
+                [class^="fa-"]:before, [class*=" fa-"]:before {
+                    transform: translateZ(1px);
+                }
+                /* If you're using Font Awesome 5.x icons, you can use this CSS */
+                .svg-inline--fa:before {
+                    transform: translateZ(1px);
+                }
+                .circle-element {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    font-weight: bold;
+                    transform-style: preserve-3d;
+                }
+                .category-icon {
+                    font-size: 24px;
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    transform-origin: 50% 50%;
+                    color: white;
+                }
+            </style>
+            <div>
+                <div style="display: inline;">
+                    <div id="earth">
+                        <style>
+                            .categories {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 20px;
+                                border-radius: 50%;
+                                /* animation: rotate 3s linear infinite; */
+                            }                          
+                            @keyframes rotate {
+                                from {
+                                    transform: rotate(0deg);
+                                }
+                                to {
+                                    transform: rotate(360deg);
+                                }
+                            }
+                        </style>              
+                        <div id="categories">
+                            <div class="circle-element fas fa-newspaper category-icon" alt="Informational Articles"></div>
+                            <div class="circle-element fas fa-star category-icon" alt="Product Reviews"></div>
+                            <div class="circle-element fas fa-book category-icon" alt="Tutorials and Guides"></div>
+                            <div class="circle-element fas fa-globe category-icon" alt="News and Current Events"></div>
+                            <div class="circle-element fas fa-film category-icon" alt="Entertainment and Media"></div>
+                            <div class="circle-element fas fa-heart category-icon" alt="Health and Wellness"></div>
+                            <div class="circle-element fas fa-plane category-icon" alt="Travel and Destinations"></div>
+                            <div class="circle-element fas fa-laptop category-icon" alt="Technology and Gadgets"></div>
+                            <div class="circle-element fas fa-graduation-cap category-icon" alt="History and Education"></div>
+                            <div class="circle-element fas fa-tools category-icon" alt="DIY and Crafts"></div>
+                        </div>
+                        <style>
+
+                            /* Make sure the icons stay upright even when parent container spins */
+
+                        /* Hide alt message by default */
+                            .circle-element:after {
+                            content: attr(alt);
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background-color: #000;
+                            color: #fff;
+                            padding: 5px;
+                            border-radius: 5px;
+                            opacity: 0;
+                            visibility: hidden;
+                            z-index: 1;
+                            }
+
+                            /* Show alt message on hover */
+                            .circle-element:hover:after {
+                            opacity: 1;
+                            visibility: visible;
+                            }
+                        </style>
+                    </div>
+                    <br>
+                    <div id="searchNet">
+                        <input id="searchInput" type="text" placeholder="searchNet">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div id="searchResults" style="display:inline;">
+                    <div class="searchResult">
+                        <a href="https://www.wolframalpha.com">www.wolframalpha.com</a>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.google.com">www.google.com</a>
+                    </div>
+                    <div class="bubble-container scale" id="bubbleContainer">
+                        <div class="bubble" draggable="true" id="scale1">
+                            <span style="color: greenyellow">HACK</span>
+                        </div>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.yahoo.com">www.yahoo.com</a>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.bing.com">www.bing.com</a>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.duckduckgo.com">www.duckduckgo.com</a>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.ask.com">www.ask.com</a>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.aol.com">www.aol.com</a>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.qwant.com">www.qwant.com</a>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.yandex.com">www.yandex.com</a>
+                    </div>
+                    <div class="searchResult">
+                        <a href="https://www.startpage.com">www.startpage.com</a>
+                    </div>
+                </div>
+            </div>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+            <script>
+                const target = document.getElementById("earth");
+                const elements = document.getElementsByClassName("circle-element");
+                const totalElements = elements.length;
+                const radius = 180; // Adjust the radius as needed
+        
+                function positionElements() {
+                    const targetRect = target.getBoundingClientRect();
+                    const centerX = targetRect.width / 2;
+                    const centerY = targetRect.height / 2;
+                    const angleIncrement = (2 * Math.PI) / totalElements;
+                    let currentAngle = 0;
+        
+                    for (let i = 0; i < totalElements; i++) {
+                        const element = elements[i];
+                        const x = centerX + radius * Math.cos(currentAngle) - element.offsetWidth / 2;
+                        const y = centerY + radius * Math.sin(currentAngle) - element.offsetHeight / 2;
+                        element.style.left = `${x}px`;
+                        element.style.top = `${y}px`;
+                        currentAngle += angleIncrement;
+                    }
+                }
+        
+                positionElements();
+            </script>
+            <script>
+                const searchInput = document.getElementById("searchInput");
+                searchInput.addEventListener("keypress", function(event) {
+                    if (event.key === "Enter") {
+                        const searchValue = searchInput.value;
+                        const apiEndpoint = "/bing";//&value=" + encodeURIComponent(searchValue);
+                        // Make the API call (you should replace this with the actual API call)
+                        makeApiCall(apiEndpoint)
+                            .then(response => {
+                                console.log("Search results:", response);
+                            })
+                            .catch(error => {
+                                console.error("Error fetching search results:", error);
+                            });
+                    }
+                });
+                // Mock API call function (replace this with the actual API call implementation)
+                function makeApiCall(url) {
+                    return fetch(url)
+                        .then(response => {
+                            // Check if the response status is in the 2xx range (success)
+                            if (!response.ok) {
+                                throw new Error(`Network response was not ok. Status: ${response.status} ${response.statusText}`);
+                            }
+                            // Parse the response body as JSON
+                            return response.json();
+                        })
+                        .then(data => {
+                            // The 'data' variable now contains the parsed JSON data
+                            return data;
+                        })
+                        .catch(error => {
+                            // Handle any errors that occurred during the fetch
+                            console.error('Error fetching data:', error);
+                            throw error; // Rethrow the error to reject the promise
+                        });
+                }
+            </script>
+            <!-- <iframe
+                class="scale"
+                id="scale2"
+                width="300"
+                height="300"
+                frameborder="0"
+                style="border:3px orange solid; border-radius: 100%;"
+                allowfullscreen
+                src="https://www.youtube.com/embed/F_QY0djGFTY?autoplay=1"
+                ></iframe> -->
+            </div>
+        </div>
+    <style>
+        .container {
+          position: relative;
+          display: inline-block;
+        }
+    </style>    
+    <div id="elementHtmlContainer">
+        <textarea cols="80" rows="1"></textarea>
+    </div>
+    <!-- <div class="bubble-container scale" id="bubbleContainer">
+        <div class="bubble" draggable="true" id="scale1">
+            <span style="color: greenyellow">HACK</span>
+        </div>
+    </div> -->
+    <div class="sidebar-left sidebar hidden" 
+        style="box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 217, 19) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px, rgb(255, 156, 85) 30px -30px, rgb(255, 255, 255) 40px -40px 0px -3px, rgb(255, 85, 85) 40px -40px;"
+    >
+        <!-- Left Sidebar content -->
+        <ul>
+            <li>Notifications
+                <div class="accordion-content">
+                    <p>Receive real-time notifications on code review comments and updates.</p>
+                    <p>Get alerts for critical code issues and bugs reported by users.</p>
+                    <p>Stay informed about new features and updates to programming libraries and frameworks.</p>
+                </div>
+            </li>
+            <li>Convohist
+                <div class="accordion-content">
+                    <p>Access a history of all code-related discussions and conversations.</p>
+                    <p>Review past discussions on code design decisions and implementation strategies.</p>
+                    <p>Collaborate with team members through the conversation history.</p>
+                </div>
+            </li>
+            <li>Workers
+                <div class="accordion-content">
+                    <p>Monitor the performance of your code workers and distributed tasks.</p>
+                    <p>Receive status updates on long-running code processes and tasks.</p>
+                    <p>Set up alerts for worker failures and errors.</p>
+                </div>
+            </li>
+            <li>Files
+                <div class="accordion-content">
+                    <p>Explore and navigate through the project's code files with ease.</p>
+                    <p>Get notified of changes to important code files in the project.</p>
+                    <p>Receive alerts when code files are accessed or modified by other team members.</p>
+                </div>
+            </li>
+            <li>Workflows
+                <div class="accordion-content">
+                    <p>Streamline your coding processes and automate repetitive tasks.</p>
+                    <p>Receive updates on the progress of code workflows and build processes.</p>
+                    <p>Set up reminders for code reviews and testing milestones.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="chat-window hidden"
+    style="box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 217, 19) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px, rgb(255, 156, 85) 30px -30px, rgb(255, 255, 255) 40px -40px 0px -3px, rgb(255, 85, 85) 40px -40px;"
+    >
+    <!-- box-shadow: rgb(0, 0, 0) 0px 0px 0px 2px inset, 
+                rgb(0, 0, 255) 10px -10px 0px -3px, 
+                rgb(0, 0, 0) 10px -10px, 
+                rgb(255, 85, 85) 20px -20px 0px -3px, 
+                rgb(0, 0, 0) 20px -20px, 
+                rgb(255, 156, 85) 30px -30px 0px -3px, 
+                rgb(0, 0, 0) 30px -30px, 
+                rgb(255, 217, 19) 40px -40px 0px -3px, 
+                rgb(0, 0, 0) 40px -40px;
+    " -->
+        <!-- Main Chat Window content -->
+        <style>
+            .menu-icon {
+              display: block;
+              width: 30px;
+              height: 20px;
+              position: relative;
+              cursor: pointer;
+            }
+        
+            .menu-icon span {
+              display: block;
+              width: 100%;
+              height: 2px;
+              background-color: white; /* Change this color to fit your design */
+              position: absolute;
+              top: 50%;
+              left: 0;
+              transform-origin: center;
+            }
+        
+            .menu-icon span:nth-child(2) {
+              top: 50%;
+              margin-top: -4px;
+            }
+        
+            .menu-icon span:nth-child(3) {
+              top: 100%;
+              margin-top: -4px;
+            }
+        </style>        
+        <div class="header">
+            <div class="channel">
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>                
+                #channel-group/1456234 
+                invite
+            </div>
+            <!-- <div>
+                <div style="display: inline;">Chat</div>
+                <div style="display: inline;">Task</div>
+                <div style="display: inline;">Goal</div>
+            </ul> -->
+        </div>
+        <div class="messages" id="message-history">
+            <!-- Chat messages will be displayed here -->
+            <li>Generative Web Apps.</li>
+            <li>Hack on Anything (&#10049;&#180;◡&#96;&#10049;)</li>
+            <li>Build Collaboratively. Social Network in one place.</li>
+            <li>Get Connected on any thought w ppl & ai</li>
+        </div>
+        <style>
+            input {
+                width: 97%;
+            }
+        </style>
+        <div class="input-area">
+            <input type="text" id="chatInput" placeholder="Chat w PPL & AI" onkeypress="handleKeyPress(event)">
+            <input type="text" id="instructions" maxlength="8000" placeholder="Command the AI" onkeypress="handleKeyPress(event)">
+            <input class="chat-input hidden" id="customizePage" placeholder="Customize Page" type="text" onkeypress="handleKeyPress(event)">
+            <input type="text" id="context-input" maxlength="8000" placeholder="Enter context here" onkeypress="handleKeyPress(event)">
+        </div>
+        <script>
+            const placeholders = [
+                "Chat w PPL & AI",
+                "Command the AI",
+                "Customize Page",
+                "Enter context here"
+            ];
+    
+            let currentInputIndex = 0;
+            let currentCharacterIndex = 0;
+    
+            function ghostWritePlaceholders() {
+                const inputElement = document.getElementsByClassName("input-area")[0].querySelectorAll("input")[currentInputIndex];
+                const placeholderText = placeholders[currentInputIndex];
+    
+                inputElement.placeholder = placeholderText.slice(0, currentCharacterIndex + 1);
+                currentCharacterIndex++;
+    
+                if (currentCharacterIndex <= placeholderText.length) {
+                    setTimeout(ghostWritePlaceholders, 100); // Delay between each character appearance
+                } else {
+                    currentCharacterIndex = 0;
+                    currentInputIndex = (currentInputIndex + 1) % placeholders.length;
+                    setTimeout(ghostWritePlaceholders, 1500); // Delay before starting next placeholder
+                }
+            }
+    
+            ghostWritePlaceholders(); // Start ghostwriting placeholders
+        </script>
+        <style>
+            input {
+                background: transparent;
+                margin-top: 8px;   
+            }
+            /* Styling the placeholder text */
+            input::placeholder {
+                color: green;
+                /* color: #00FF00; */
+            }
+        </style>
+        <!-- <div class="chat-bubble hidden" id="chatBubble" style="width: 350px;">
+            <div id="chatMinimizeButton" class="hover-input">Minimize</div>
+            <input class="chat-input hidden" id="chatInput" placeholder="Customize Page" type="text">
+            <div class="chat-content hidden" id="chatContent">
+                Chat messages will be displayed here
+                <div class="message">
+                    <span class="username">AI:</span> What web component would you like me to make?
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="sidebar-right sidebar hidden"
+        style="box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 217, 19) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px, rgb(255, 156, 85) 30px -30px, rgb(255, 255, 255) 40px -40px 0px -3px, rgb(255, 85, 85) 40px -40px;"
+    >
+        <!-- Right Sidebar content -->
+        <ul>
+            <li>Ppl
+                <div class="accordion-content">
+                    <p>Connect with other programmers and developers in the community.</p>
+                    <p>View profiles of fellow programmers to learn about their skills and interests.</p>
+                    <p>Receive recommendations for potential coding collaborators.</p>
+                </div>
+            </li>
+            <li>Common
+                <div class="accordion-content">
+                    <p>Explore common programming challenges and their solutions.</p>
+                    <p>Access a library of frequently used code snippets and functions.</p>
+                    <p>Learn best practices and coding conventions followed by other programmers.</p>
+                </div>
+            </li>
+            <li>Niche
+                <div class="accordion-content">
+                    <p>Discover specialized programming topics and niche technologies.</p>
+                    <p>Get insights into emerging trends in specific programming domains.</p>
+                    <p>Access tutorials and resources for mastering niche programming skills.</p>
+                </div>
+            </li>
+            <li>Recommended
+                <div class="accordion-content">
+                    <p>Get personalized recommendations for coding tools and software.</p>
+                    <p>Receive suggested learning paths to advance your programming career.</p>
+                    <p>Explore recommended coding challenges and projects to enhance your skills.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <style>
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+            transition: border-bottom-color 0.3s ease;
+        }
+        a:hover {
+            border-bottom-color: transparent;
+        }
+    </style>
+    <script>
+        function handleKeyPress(event) {
+            // Get the ID of the element
+            if (event.key === "Enter") {
+                sendChatMessage(event.target.value);
+            }
+        }
+
+        const displayChatMessage = function(chatMessageHTML) {
+            const messageHistory = document.getElementById("message-history");
+            const aiMessageElement = document.createElement("li");
+            aiMessageElement.classList.add("message");
+            // aiMessageElement.textContent = "AI: " + chatMessage;
+            aiMessageElement.innerHTML += chatMessageHTML;
+            messageHistory.appendChild(aiMessageElement);
+        }
+        const sendMessageToAI = (message, cb)=>{
+            Prompt('textCompletion', message, 'text-davinci-003')
+                .then((response)=>{
+                    return response.json()
+                })
+                .then(response => {                    
+                    console.log('response', response.airesponse);
+                    cb(response);
+                })
+        }
+        async function sendChatMessage(message) {
+            console.log("sending chat msg");
+            const chatInputField = document.getElementById("chatInput");
+                // Append user message to the message history
+                displayChatMessage("you: "+message);
+                // Clear the input field
+                chatInputField.value = "";
+                // Call the AI function to get the response
+                await sendMessageToAI(message, (response) => {
+                    // let threads = "";
+                    // Object.keys(response.airesponse).forEach((key) => {
+                    //     threads += `<div><a href="#${key}">${key}</a></div>`;
+                    // });
+                    // Function to create a tree structure
+                    // Get the parent element where the tree will be displayed
+                    const parentElement = document.getElementById('message-history');
+                    // Create the tree structure and display it
+                    let threads = createTree(response.airesponse, parentElement);
+                    displayChatMessage("AI: \n" + threads);
+                    speakText(response.airesponse.message);
+                });
+        }
+        function createTree(obj, parentElement, parentKey) {
+            // Base case: if the input is not an object or is null, return
+            if (typeof obj !== 'object' || obj === null) {
+                return;
+            }
+            // Create a new unordered list to represent the current level of the tree
+            const ul = document.createElement('ul');
+            parentElement.appendChild(ul);
+            // Loop through all keys in the object
+            for (const key in obj) {
+                // Check if the current property is a direct property of the object (not from the prototype chain)
+                if (obj.hasOwnProperty(key)) {
+                    // Create a new list item for the current key
+                    const li = document.createElement('li');
+                    // Create a clickable link for the current key
+                    const link = document.createElement('a');
+                    link.href = `#${parentKey ? parentKey + '.' : ''}${key}`;
+                    link.textContent = key;
+                    li.appendChild(link);
+                    // Recursively create the subtree for the nested object
+                    createTree(obj[key], li, parentKey ? parentKey + '.' + key : key);
+                    ul.appendChild(li);
+                }
+            }
+        }
+        function speakText(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                const synthesis = window.speechSynthesis;
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+
+                // Set the rate to 2.0 to double the voice speed
+                utterance.rate = 2.0;
+
+                synthesis.speak(utterance);
+
+                // add different voices later on
+
+            } else {
+                alert("Your browser doesn't support speech synthesis.");
+            }
+        }
+    </script>
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            // Get the draggable bubble element
+            const bubbleContainer = document.getElementById("bubbleContainer");
+
+            // Variables to store the initial mouse position and bubble position
+            let initialX, initialY, offsetX, offsetY;
+
+            // Function to handle the start of the drag
+            function dragStart(event) {
+                // Store the initial mouse position
+                initialX = event.clientX;
+                initialY = event.clientY;
+
+                // Get the current position of the bubble
+                const boundingRect = bubbleContainer.getBoundingClientRect();
+                offsetX = initialX - boundingRect.left;
+                offsetY = initialY - boundingRect.top;
+
+                // Add event listeners for drag move and drag end
+                document.addEventListener("mousemove", dragMove);
+                document.addEventListener("mouseup", dragEnd);
+            }
+
+            // Function to handle the dragging movement
+            function dragMove(event) {
+                // Calculate the new position of the bubble based on the mouse movement
+                const newX = event.clientX// - offsetX;
+                const newY = event.clientY //- offsetY;
+
+                // Update the position of the bubble
+                bubbleContainer.style.left = newX + "px";
+                bubbleContainer.style.top = newY + "px";
+            }
+
+            // Function to handle the end of the drag
+            function dragEnd() {
+                // Remove the event listeners for drag move and drag end
+                document.removeEventListener("mousemove", dragMove);
+                document.removeEventListener("mouseup", dragEnd);
+            }
+
+            // Add event listener for drag start on the bubble
+            bubbleContainer.addEventListener("mousedown", dragStart);
+        });
+
+    </script>
+    <style>
+        ul, ol, li {
+            list-style: none;
+            padding-left: 0; /* Optional: To remove any default indentation */
+        }
+    </style>
+    <script>
+        const colors = ['#76F4F6', '#F7C553', '#2EEB9F', '#61036D'];
+        let counter = 0;
+
+        // Function to change the color of all anchor tags' text
+        function changeColor() {
+            const anchorTags = document.getElementsByTagName('a');
+            // Get the next color from the colors array
+            const color = colors[counter % colors.length];
+            // Change the color of all anchor tags
+            for (let i = 0; i < anchorTags.length; i++) {
+            anchorTags[i].style.color = color;
+            }
+            // Log the current color
+            console.log('Current color:', color);
+            // Increase the counter
+            counter++;
+            // Repeat the process 30 times
+            setTimeout(changeColor, 3000); // Change color every 3 seconds
+        }
+
+        // Call the function to start changing colors
+        changeColor();
+    </script>
+    
+    <!-- <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #3b2d5a 25%, #280f4d 25%, #280f4d 50%, #3b2d5a 50%, #3b2d5a 75%, #280f4d 75%, #280f4d);
+            background-size: 28.28px 28.28px;
+        }
+    </style> -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            font-family: "Roboto Mono", monospace;
+
+            /* background-image: url('https://i.pinimg.com/originals/ea/fe/ab/eafeab0f48f1e04acc5847c37d01d3c0.jpg'); */
+            background-image: url('https://e1.pxfuel.com/desktop-wallpaper/474/721/desktop-wallpaper-cyber-top-cyber-backgrounds-1920x1080-for-your-mobile-tablet-cyber-aesthetic.jpg');
+            /* background-image: url('https://wallpapercave.com/wp/wp9773233.jpg'); */
+            /* background-image: url('https://previews.123rf.com/images/klyaksun/klyaksun2008/klyaksun200800060/152855556-vector-cartoon-interior-of-future-data-center-room-with-server-hardware-and-hologram-of-processor.jpg'); */
+
+            /* background: linear-gradient(135deg, #3b2d5a 25%, #280f4d 25%, #280f4d 50%, #3b2d5a 50%, #3b2d5a 75%, #280f4d 75%, #280f4d); */
+
+            /* background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red); */
+            /* background: linear-gradient(to bottom, violet, indigo, blue, green, yellow, orange, red); */
+            /* background: linear-gradient(to bottom, 
+                #00FF00, 
+                #00FFFF, 
+                #FF00FF, 
+                #FFA500, 
+                #FF1493, 
+                #FFD700, 
+                #FF4500, 
+                #800080, 
+                #FF6347, 
+                #00CED1, 
+                #FF0000, 
+                #ADD8E6, 
+                #9932CC, 
+                #1E90FF
+            ); */
+
+
+            background-repeat: no-repeat;
+            background-size: 100%;
+
+            background-color: black;
+            /* background-image:
+                linear-gradient(45deg, white 25%, transparent 25%),
+                linear-gradient(-45deg, green 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, purple 75%),
+                linear-gradient(-45deg, transparent 75%, pink 75%); */
+
+            /* background-size: 30px 30px; */
+            background-position: 0 0, 15px 0, 15px -15px, 0px 15px;
+        }
+
+       /* .overlay1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: lightblue;
+            opacity: 0.4;
+        } */
+       
+        /* .overlay2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: lightpink;
+            opacity: 0.1;
+        } */
+
+        /* Use a futuristic monospaced font */
+        /* Define the font style for headings */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Orbitron", sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Define the font style for paragraphs */
+        p {
+            font-family: "Roboto", sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Add a futuristic text-shadow effect */
+        h1, h2, h3, h4, h5, h6, p {
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+
+
+    <!-- <style>
+        .scale-container {
+            display: flex;
+        }
+        .scale {
+            width: 50px;
+            height: 150px;
+            background-color: #007bff;
+            margin: 10px;
+            transition: width 0.5s, height 0.5s;
+        }
+    </style> -->
+    <script>
+        function animateScales() {
+            // Scale up scale1 and shrink scale2
+            // const scale1 = document.getElementById('scale1');
+            const scale2 = document.getElementById('scale2');
+            // scale1.style.width = '150px';
+            // scale1.style.height = '150px';
+            scale2.style.width = '130px';
+            scale2.style.height = '130px';
+            // After a short delay, reverse the scales
+            setTimeout(() => {
+            //   scale1.style.width = '130px';
+            //   scale1.style.height = '130px';
+              scale2.style.width = '150px';
+              scale2.style.height = '150px';
+            }, 1000); // 1000 milliseconds = 1 second
+      
+            // Loop the animation
+            setTimeout(animateScales, 2000); // Repeat after 2 seconds (animation length 1s + delay 1s)
+          }
+      
+          // Start the animation
+        //   animateScales();
+    </script>
+    <style>
+        /* #message-history {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff00ff, #00ff00, #00ffff, #ff0000);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        } */
+        #message-history {
+            background: linear-gradient(135deg, #ff00ff, #00ff00, #00ffff, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientAnimation 5s ease-in-out infinite;
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</body>
+</html>
