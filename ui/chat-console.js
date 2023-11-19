@@ -1,8 +1,33 @@
-class ChatConsole {
-    constructor(){
+class ChatConsole extends UINode {
+    constructor(app){
+        super(app);
         console.log("module: ChatConsole");
         let currentInputIndex = 0;
         let currentCharacterIndex = 0;
+    }
+    render(app){
+        return `
+        <div class="chat-window hidden inline cards">
+            <!-- Main Chat Window content -->
+            ${this.css}
+            <div class="inline">
+                <div module="ChatConsoleHeader">
+                    ${new app.modules.ChatConsoleHeader(app).render(app)}
+                </div>
+                <div class="">
+                    <div module="ChatNavList" style="width: 10%; border: 1px red solid; display: inline-block;">
+                        ${new app.modules.ChatNavList(app).render(app)}
+                    </div>
+                    <div module="ChatConsoleMsgs" style="width: 80%; display: inline-block; border: 1px red solid;">
+                        ${new app.modules.ChatConsoleMsgs(app).render(app)}
+                    </div>
+                </div>
+                <div module="ChatDynamicForms">
+                     ${new app.modules.ChatConsoleDynamicForms(app).render(app)}
+                </div>
+            </div>
+        </div>
+        `
     }
     html = `
     <div class="chat-window hidden inline cards">
@@ -59,7 +84,7 @@ class ChatConsole {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             margin-top: 5px;
             margin-bottom: 5px;
-        }                
+        }
         .input-area input:focus {
             outline: none;
         }
@@ -67,15 +92,12 @@ class ChatConsole {
             color: green;
             /* color: #00FF00; */
         }
-
         .messages {
             background: black;
         }
-
         .messages div {
             color: red;
         }
-
         .top {
             vertical-align: top;
         }

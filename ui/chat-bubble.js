@@ -1,4 +1,4 @@
-class ChatBubble {
+class ChatBubble extends UINode {
     // const chatBubble = (
     //     <div class="chat-bubble hidden" id="chatBubble" style="width: 350px;">
     //         <div id="chatMinimizeButton" class="hover-input">Minimize</div>
@@ -12,9 +12,8 @@ class ChatBubble {
     //     </div>
     // );  
     // document.body.appendChild(chatBubble);
-
-    constructor(){
-
+    constructor(app){
+        super(app);
     }
     render(){}
 }

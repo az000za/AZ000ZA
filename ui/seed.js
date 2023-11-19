@@ -1,6 +1,6 @@
-class Seed {
+class Seed extends UINode {
     constructor(app){
-
+        super(app);
     }
     render(){
         return `

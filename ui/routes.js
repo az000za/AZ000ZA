@@ -9,13 +9,14 @@ class Routes {
      */
     routes = [];
     constructor(app){
+        // super(app);
         this.routes = [];
         this.buildRoutes(app);
     }
     buildRoutes(app){
         const Route = app.modules.Route;
         const uiNode = app.modules.UINode;
-        const routes = this.routePresets()
+        const routes = this.routePresets();
         for (let key in routes) {
             console.log(Route);
             this.routes.push(
@@ -23,43 +24,37 @@ class Routes {
                     {
                         path: key,
                         guard: {},
+                        initModule: {
+                            name: "ChatWindow",
+                            module: app.modules.ChatWindow,
+                            managedBY: "App",
+                            data: {},
+                        },
                         populateUINodes: [
-                            new uiNode({
-                                name: "ChatWindow",
-                                module: app.modules.ChatWindow,
-                                managedBY: "App",
-                                data: {},
-                            }),
-                            new uiNode({
-                                name: "ChatConsole",
-                                module: app.modules.ChatConsole,
-                                managedBY: "ChatWindow",
-                                data:{},
-                            }),
-                            new uiNode({
-                                name: "bar",
-                                module: app.modules.ChatNavList,
-                                managedBY: "ChatConsole",
-                                data: {
-                                    messages: routes[key].bar
-                                },
-                            }),
-                            new uiNode({
-                                name: "console",
-                                module: app.modules.ChatConsoleMsgs,
-                                managedBY: "ChatConsole",
-                                data: {
-                                    messages: routes[key].messages,
-                                }
-                            }),
-                            new uiNode({
-                                name: "forms",
-                                module: app.modules.ChatConsoleDynamicForms,
-                                managedBy: "ChatConsole",
-                                data: {
-                                    forms: routes[key].forms
-                                }
-                            })
+                            // new uiNode({
+                            //     name: "bar",
+                            //     module: app.modules.ChatNavList,
+                            //     managedBY: "ChatConsole",
+                            //     data: {
+                            //         messages: routes[key].bar
+                            //     },
+                            // }),
+                            // new uiNode({
+                            //     name: "console",
+                            //     module: app.modules.ChatConsoleMsgs,
+                            //     managedBY: "ChatConsole",
+                            //     data: {
+                            //         messages: routes[key].messages,
+                            //     }
+                            // }),
+                            // new uiNode({
+                            //     name: "forms",
+                            //     module: app.modules.ChatConsoleDynamicForms,
+                            //     managedBy: "ChatConsole",
+                            //     data: {
+                            //         forms: routes[key].forms
+                            //     }
+                            // })
                         ]
                     }
                 ),

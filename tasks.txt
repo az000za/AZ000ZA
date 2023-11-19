@@ -1,0 +1,12 @@
+* adjust messages to fit whole space            (onhold)
+
+* make nav list have minimum width              (onhold)
+
+* ensure UI is responsive for mobile & labtop   (onhold)
+
+* make the UI router work, start on /gate       (current)
+
+* make the inputs typeable & submittable
+
+
+

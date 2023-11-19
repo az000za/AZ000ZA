@@ -1,0 +1,42 @@
+const Data = require('./data');
+
+module.exports = class Builder {
+    constructor(actions){
+        console.log(actions)
+        console.log("class Builder init start");
+        this.options(actions);
+        console.log("class Builder init end");
+    }
+    async options(actions){
+        let userAnswer = await this.promptUser(
+            `What would you like to build? \n${Object.keys(actions).join('\n')}`
+        );
+        console.log("user responded with");
+        console.log(userAnswer);
+        if (Object.keys(actions).includes(userAnswer)) {
+            console.log(actions[userAnswer]);
+            console.log(typeof action);
+            console.log(actions[userAnswer]);
+            // need to select data;
+            // should this start off with Data or the ShortCuts
+            console.log("Data Class init");
+
+        } else {
+            console.log("retry");
+            await this.options(actions);
+        }
+    }
+    promptUser(prompt){
+        const readline = require('readline');
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
+        return new Promise((resolve, reject) => {
+            rl.question(prompt, (answer) => {
+                resolve(answer);
+                rl.close();
+            });
+        });          
+    }
+}

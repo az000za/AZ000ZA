@@ -1,6 +1,9 @@
-class ChatConsoleDynamicForms {
-    constructor(){
-
+class ChatConsoleDynamicForms extends UINode {
+    constructor(app){
+        super(app);
+    }
+    render(){
+        return this.html;
     }
     html = `
         <div class="input-area">

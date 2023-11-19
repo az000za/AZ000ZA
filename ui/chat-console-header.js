@@ -1,6 +1,6 @@
-class ChatConsoleHeader {
-    constructor(){
-
+class ChatConsoleHeader extends UINode {
+    constructor(app){
+        super(app);
     }
     html = `
     <div class="header">
@@ -9,9 +9,11 @@ class ChatConsoleHeader {
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>                
-            #channel-group/1456234 
-            invite
+            </div>
+            <button>INVITE</button>
+            <div>
+                www.channelweb.com/0/www.google.com
+            </div>
         </div>
     </div>
     `;
@@ -20,5 +22,8 @@ class ChatConsoleHeader {
     `;
     js = {
 
+    }
+    render(){
+        return this.html;
     }
 }

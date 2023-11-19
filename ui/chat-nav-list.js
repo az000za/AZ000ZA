@@ -1,41 +1,42 @@
-class ChatNavList{
-    constructor(){
-        const DBModels = [
-            // surfing
-            "Channels",
-            // file like db models
-            "Notifications",
-            "ConvoHist",
-            "Workers",
-            "Files",
-            "WorkFlows",
-            // interactive ai/user like db models
-            "PPL",
-            "Common",
-            "Niche",
-            "Recommended",
-        ];
-        const NavListItem = function(index, name){
-            return (
-                `<li key=${index}>${name}
-                    <div class="accordion-content">
-                        <p>Connect with other programmers and developers in the community.</p>
-                        <p>View profiles of fellow programmers to learn about their skills and interests.</p>
-                        <p>Receive recommendations for potential coding collaborators.</p>
-                    </div>
-                </li>`
-            )
-        }
-        const NavList = function(list){
-            const listItems = list.map((item, index) =>
-                NavListItem(index, item)
-            ).join("");
-            return (
-                `<ul>
-                    ${listItems}
-                </ul>`
-            )
-        }
+class ChatNavList extends UINode {
+    constructor(app){
+        super(app);
+    }
+    DBModels = [
+        // surfing
+        "Channels",
+        // file like db models
+        "Notifications",
+        "ConvoHist",
+        "Workers",
+        "Files",
+        "WorkFlows",
+        // interactive ai/user like db models
+        "PPL",
+        "Common",
+        "Niche",
+        "Recommended",
+    ];
+    NavListItem(index, name){
+        return (
+            `<li key=${index}>${name}
+                <div class="accordion-content">
+                    <p>Connect with other programmers and developers in the community.</p>
+                    <p>View profiles of fellow programmers to learn about their skills and interests.</p>
+                    <p>Receive recommendations for potential coding collaborators.</p>
+                </div>
+            </li>`
+        )
+    }
+    NavList(list) {
+        const listItems = list.map((item, index) =>
+            this.NavListItem(index, item)
+        ).join("");
+        return (
+            `<ul>
+                ${listItems}
+            </ul>`
+        )
     }
     render(list){
         return (
@@ -44,9 +45,7 @@ class ChatNavList{
                     .sidebar {
                         background-color: #222;
                         color: #fff;
-                        width: 200px;
                         padding: 10px;
-                        vertical-align: middle;
                     }
                     .sidebar ul {
                         list-style: none;
@@ -67,7 +66,7 @@ class ChatNavList{
                     }
                 </style>
                 <div class="sidebar-left sidebar hidden inline">
-                    ${NavList(DBModels)}
+                    ${this.NavList(this.DBModels)}
                 </div>
             </div>`
         )

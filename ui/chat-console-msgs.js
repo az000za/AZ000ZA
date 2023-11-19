@@ -1,16 +1,20 @@
-class ChatConsoleMsgs {
+class ChatConsoleMsgs extends UINode {
     constructor(app){
-        console.log("module: ChatConsoleMsgs");
-        const sampleObjMsg = {
-            "content": "",      // The message goes here
-            "createAt": "",     // The time the message was created
-            "author": "",       // What user id created the message
-            "id_author": "",    // The author who created the message
-            "sub-link": "",     // The link for commented messages 
-        }
-        // the messages are made by nodes.
-        console.log(app);
+        // console.log("module: ChatConsoleMsgs");
+        // const sampleObjMsg = {
+        //     "content": "",      // The message goes here
+        //     "createAt": "",     // The time the message was created
+        //     "author": "",       // What user id created the message
+        //     "id_author": "",    // The author who created the message
+        //     "sub-link": "",     // The link for commented messages 
+        // }
+        // // the messages are made by nodes.
+        // console.log(app);
         // app.MindMap(app);
+        super(app);
+    }
+    render(){
+        return this.html;
     }
     data = {
         "introMSGs": [
@@ -20,9 +24,6 @@ class ChatConsoleMsgs {
             "Get Connected on any thought w ppl & ai",
         ]
     }
-    html = `
-    <div class="messages" id="message-history"></div>
-    `
     css = ``;
     js = {
         insertMsg(msgs){
@@ -37,4 +38,9 @@ class ChatConsoleMsgs {
             return m
         } 
     };
+    html = `
+        <div class="messages" id="message-history">
+            ${this.js.insertMsg(this.data.introMSGs)}
+        </div>
+    `
 }
