@@ -78,7 +78,11 @@ module.exports = class FunC extends Data {
         });
     }
     locations = {
-      "127.0.0.1":"port/<path>",
+        // // "127.0.0.1":"port/<path>",
+        // at
+        //     inCurrentProgram,
+        //     localAddress
+        //     remoteAddress
     }
     execute(){
       /**
@@ -91,18 +95,35 @@ module.exports = class FunC extends Data {
        * how do I ensure code is executed in the correct order?
        */
 
-      const startTime = performance.now();
-      const memoryUsageBefore = performance.memory.usedBytes;
-      const result = this.function(...args);
-      const memoryUsageAfter = performance.memory.usedBytes;
-      const endTime = performance.now();
-      this.executionTime += endTime - startTime;
-      this.executionCount++;
-      this.memoryUsage += memoryUsageAfter - memoryUsageBefore;
-      const cpuUsageStart = performance.now();
-      const cpuUsageEnd = performance.now();
-      this.cpuUsage += cpuUsageEnd - cpuUsageStart;
-      return result;
+        
+        
+      // const startTime = performance.now();
+      // const memoryUsageBefore = performance.memory.usedBytes;
+      // const result = this.function(...args);
+      // const memoryUsageAfter = performance.memory.usedBytes;
+      // const endTime = performance.now();
+      // this.executionTime += endTime - startTime;
+      // this.executionCount++;
+      // this.memoryUsage += memoryUsageAfter - memoryUsageBefore;
+      // const cpuUsageStart = performance.now();
+      // const cpuUsageEnd = performance.now();
+      // this.cpuUsage += cpuUsageEnd - cpuUsageStart;
+      // return result;
+    }
+    executeAsync(...args) {
+        const startTime = performance.now();
+        return new Promise((resolve, reject) => {
+          this.function(...args).then((result) => {
+            const endTime = performance.now();
+    
+            this.asyncExecutionTime += endTime - startTime;
+            this.asyncExecutionCount++;
+    
+            resolve(result);
+          }).catch((error) => {
+            reject(error);
+          });
+        });
     }
     getAverageExecutionTime() {
       if (this.executionCount === 0) {
