@@ -67,7 +67,7 @@ console.log(`
 
 const args = process.argv.slice(2);
 const argNodeExe  = process.argv.slice(0);
-const argFileName = process.argv.slice(1);
+const argFilePath = process.argv.slice(1);
 const argHTMLFile = process.argv.slice(2);
 const { spawn } = require('child_process');
 const http = require("http");
@@ -75,13 +75,13 @@ const http = require("http");
 // start server & open default browser
 
 const { exec } = require('child_process');
-const url = argFileName;
+const url = argFilePath;
 
 const http = require('http');
 const server = http.createServer((req, res) => {
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end('<h1>Hello, World!</h1>');
+    res.sendFile(argFilePath);
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
@@ -92,3 +92,52 @@ server.listen(3000, () => {
 
   setTimeOut(exec(`open ${url}`), 2000);
 });
+
+
+
+
+
+
+
+// // const mongoose = require('mongoose');
+
+// // // Connect to MongoDB
+// // mongoose.connect('mongodb://localhost', {
+// //     useNewUrlParser: true,
+// //     useUnifiedTopology: true
+// // })
+// //     .then(() => {
+// //         console.log('Connected to MongoDB!');
+// //         return true;
+// //     })
+// //     .catch((error) => {
+// //         console.error('Error connecting to MongoDB:', error);
+// //         return false;
+// //     });
+
+// const http = require('http');
+// const fs = require('fs');
+// const path = require('path');
+
+
+// const Site = require("./controllers/controller.site.js");
+// const Static = require("./controllers/controller.static.js");
+// // const AI = require("./controllers/controller.ai.js");
+// // const Auth = require("./")
+
+// const server = http.createServer((req, res) => { // onRequest
+//   // controller per route
+//   if   (req.url.startsWith('/ui'))         Static(req,res);
+//   // else if   (req.url === "/ai")      AI()(req,res);
+//   // else if   (req.url === "/auth")    Auth()(req,res);
+//   // else if   (req.url === "/gendata") GenData()(req,res);
+//   else if        (req.url.startsWith('/'))           Site(req,res);
+//   else {
+//     // SendError();
+//     throw new Error("path not supported:"+req.url);
+//   }
+// });
+
+// server.listen(8080, () => console.log('Server running on port 8080'));
+
+
