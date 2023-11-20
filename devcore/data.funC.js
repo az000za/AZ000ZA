@@ -84,6 +84,9 @@ module.exports = class FunC extends Data {
         //     localAddress
         //     remoteAddress
     }
+    prime(){
+        
+    }
     execute(){
       /**
        * 
@@ -95,7 +98,7 @@ module.exports = class FunC extends Data {
        * how do I ensure code is executed in the correct order?
        */
 
-        
+      
         
       // const startTime = performance.now();
       // const memoryUsageBefore = performance.memory.usedBytes;
