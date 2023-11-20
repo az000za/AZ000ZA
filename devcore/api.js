@@ -1,6 +1,6 @@
 <html>
     <body id="root"></body>
-    <script type="text/javascript" src="./ui/data.js"></script>
+    <script type="text/javascript" src="./ui/Data.js"></script>
     <script type="text/javascript">
         class API {
             constructor(name, description, endpoints) {
