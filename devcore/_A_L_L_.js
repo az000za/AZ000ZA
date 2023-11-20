@@ -1,4 +1,4 @@
-module.exports = _A_L_L_ = class AlgoLinkLoop {
+class _A_L_L_ { // AlgoLinkLoop
     // input = {
   
     // }
