@@ -1,5 +1,6 @@
 <html>
     <body id="root"></body>
+    <script type="text/javascript" src="./DevCore/DevCore.js"></script>
     <script type="text/javascript" src="./ui/ChatConsole.js"></script>
     <script type="text/javascript" src="./ui/ChatNavList.js"></script>
     <script type="text/javascript" src="./ui/ChatConsoleHeader.js"></script>
