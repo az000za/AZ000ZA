@@ -61,3 +61,36 @@ channel link examples
 GET SOCIALLY LINKED WITH ANYONE ON ANY PROMPT THAT MIGHT BE ABLE TO ANSWER YOUR PROMPT
 GET SOCIALLY LINKED WITH ANY SPECIALIZED AI ON ANY PROMPT
 
+
+
+
+
+
+
+        Social Media Generative Web
+        
+            Everything becomes a channel
+            
+                // mocks the internet router
+                
+            
+            Everything has specialized AI'specialized
+        
+                General AI
+        
+                Search AI 
+                    - AI Assitant Directory Search
+                    - Conversation Search ... talk to AI, it figures out what channel conversation can discuss it.
+                    - Social Linker
+                        - Professional Social Linker
+                            -- Businesses
+                            -- Websites
+                            -- People
+        
+                Other Customizable Niche AI's
+        
+            Generates Application based on Conversation
+        
+                -- Make customizable instances of the web.
+
+
