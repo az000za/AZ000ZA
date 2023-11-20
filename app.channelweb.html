@@ -24,7 +24,18 @@
                     description: require("fs").readFileSync("./README.md", "utf-8"),
                     packageJSON: require("./package.json"),
                     components: [
-                        ""
+                        UINode,
+                        ChatBubble,
+                        ChatWindow,
+                        ChatConsole,
+                        ChatNavList,
+                        ChatConsoleHeader,
+                        ChatConsoleMsgs,
+                        ChatConsoleDynamicForms,
+                        Seed,
+                        Route,
+                        Routes,
+                        Router
                     ],
                 }
             ).run();
