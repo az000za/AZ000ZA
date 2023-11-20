@@ -46,6 +46,12 @@ module.exports = class FunC extends Data {
           type: Function,
           value: obj.spec,
         });
+        props.spec = new Data({
+          fieldname: "pathway",
+          description: "Pathway locations",
+          type: Array,
+          value: obj.locations,
+        });
         props.executionTime = new Data({
           fieldname: "executionTime",
           description: "",
@@ -77,16 +83,13 @@ module.exports = class FunC extends Data {
           value: props,
         });
     }
-    locations = {
-        // // "127.0.0.1":"port/<path>",
-        // at
-        //     inCurrentProgram,
-        //     localAddress
-        //     remoteAddress
-    }
-    prime(){
-        
-    }
+    // pathways = {
+    //     // // "127.0.0.1":"port/<path>",
+    //     // at
+    //     //     inCurrentProgram,
+    //     //     localAddress
+    //     //     remoteAddress
+    // }
     execute(){
       /**
        * 
