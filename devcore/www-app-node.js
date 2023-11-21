@@ -67,6 +67,30 @@ console.log(`
   It's already in an app form so every function we
   write comes with a generic interface at the minimum.
 
+  HTML can also make browsers into DOMServers that share computing power
+  to all people that opt in.
+  This would essentially make everything available through the internet
+  regardless giving people access to computer power.
+  This means that the backend can get offloaded to other people.
+  Maybe possibly in a decentralized and encrypted way so that people
+  can't interfere or have to try really hard.
+  The backend I will build will only do one thing.
+  It will map to whereever the function is be hosted
+  to execute on.
+  I have written code that makes every piece of code
+  turn into a serverside & client side api
+  available through the router.
+  This makes everything async.
+
+  Imagine you have the javascript code
+
+    function ExampleFunction(a, b){
+        this.set("result", 0);              // can get converted into a client request async function or remain local
+        this.get("result").add(a ,b);       // can get converted into a client request async function or remain local
+        this.get("result").multiply(a, b);  // can get converted into a client request async function or remain local
+    }
+
+  
   Features:
   (INCOMPLETE) Needs to intake an app html file and open default browser.
   (INCOMPLETE) Needs to be able to extract and conclude information from any html file and determine what information to fill in or not to make an application.
