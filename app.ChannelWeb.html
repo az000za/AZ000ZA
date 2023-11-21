@@ -37,26 +37,25 @@
         new DevCore()
             .Application(
                 {
-                    appName: "ChannelWeb",
-                    version: "0.0.0",
-                    developer: "1.a.b.c.0.0.0.x.y.z.1@gmail.com",
-                    description: require("fs").readFileSync("./README.md", "utf-8"),
-                    packageJSON: require("./package.json"),
-                    components: [
-                        UINode,
-                        ChatBubble,
-                        ChatWindow,
-                        ChatConsole,
-                        ChatNavList,
-                        ChatConsoleHeader,
-                        ChatConsoleMsgs,
-                        ChatConsoleDynamicForms,
-                        Seed,
-                        Route,
-                        Routes,
-                        Router
-                    ],
-                }
+                    "name": "ChannelWeb",
+                    "version": "1.0.0",
+                    "description": "Turn every url into a chat channel powered by AI",
+                    "keywords": ["awesome", "great", "package"],
+                    "author": "Devon Houghton <1.a.b.c.0.0.0.x.y.z.1@gmail.com>",
+                    "license": "none",
+                    "main": "app.ChannelWeb.html",
+                    "files": ["index.js", "README.md"],
+                    "scripts": {
+                      "test": "mocha",
+                      "start": "wwwnode app.ChannelWeb.html",
+                    },
+                    "repository": {
+                      "type": "git",
+                      "url": "https://github.com/az000za/ChannelWeb.html"
+                    },
+                    "dependencies": {},
+                    "devDependencies": {},
+                  }
             ).run();
     </script>
 </html>
