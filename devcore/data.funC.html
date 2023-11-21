@@ -81,10 +81,24 @@
 
 
 
-                props.optimizedForProcessor  // cpu // gpu // tpu
-                props.optimizedForExecution  // sync, async, parallel, concurrency,
+                // cpu // gpu // tpu
+                props.optimizedForProcessor = new Data({
+                  fieldname: "optimizedForProcessor",
+                  description: "",
+                  type: String,
+                  value: "",
+                });
+                // sync, async, parallel, concurrency,
+                props.optimizedForExecution = new Data({
+                    fieldname: "optimizedForExecution",
+                    description: "",
+                    type: String,
+                    value: "",
+                });
 <!--                 props.optimizedForDataStructureSelection -->
-                props.optimizedForAlgorithm
+                props.optimizedForAlgorithm = new Data({
+    
+                })
     
                 new Data({
                   fieldname: "FunC",
