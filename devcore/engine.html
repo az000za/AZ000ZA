@@ -14,12 +14,13 @@
         // such as what to do when no more functions to execute
         // or how do I pause the engine?
         // or how do I delete the nodes
-
         
         this.entryNode = {  // creates an entry node to lead to next functions
-          
+          fn: Function,
+          cycle: 0,
+          orderN: 0,
+          nextNode: {},
         };
-        
         this.lastNode = { // how do the previousNodes get deleted to not suck up memory?
           fn: Function,
           cycle: 0,
