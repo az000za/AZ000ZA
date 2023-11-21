@@ -78,9 +78,7 @@
                   type: String,
                   value: "0",
                 });
-
-
-
+    
                 // cpu // gpu // tpu
                 props.optimizedForProcessor = new Data({
                   fieldname: "optimizedForProcessor",
@@ -89,15 +87,20 @@
                   value: "",
                 });
                 // sync, async, parallel, concurrency,
-                props.optimizedForExecution = new Data({
+                props.optimizedForExecutionOrder = new Data({
                     fieldname: "optimizedForExecution",
                     description: "",
                     type: String,
                     value: "",
                 });
-<!--                 props.optimizedForDataStructureSelection -->
-                props.optimizedForAlgorithm = new Data({
-                    fieldname: "optimizedForAlgorithm",
+                props.optimizedForDataStructureSelection = new Data({
+                    fieldname: "optimizedForDataStructureSelection",
+                    description: "",
+                    type: String,
+                    value: "",
+                });
+                props.optimizedForAlgorithmApproach = new Data({
+                    fieldname: "optimizedForAlgorithmApproach",
                     description: "",
                     type: String,
                     value: "",
