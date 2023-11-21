@@ -8,6 +8,12 @@
         this.graph = createDependencyGraph(functions);
         this.visited = new Set();
         this.order = [];
+        this.lastNode = { // how do the previousNodes get deleted to not suck up memory?
+          fn: Function,
+          cycle: 0,
+          orderN: 0,
+          nextNode: {}          
+        };
         this.eventManager = {};
         console.log(`
           The execution engine won't be able to soley
@@ -15,10 +21,11 @@
           The engine must be able to
           introduce paths during it's execution
           and not have data get filled up.
-        `)
+        `);
         this.odometer = {
           cycle: iterOrder, 
           orderN: iterOrder,
+          limit: Number.Max_SAFE_INTEGER,
         };
       }
       odometer(){
