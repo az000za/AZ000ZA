@@ -63,6 +63,15 @@ console.log(`
   And heres even the best part about html.
   It's already in an app form so every function we
   write comes with a generic interface at the minimum.
+
+  Features:
+  (INCOMPLETE) Needs to intake an app html file and open default browser.
+  (INCOMPLETE) Needs to be able to extract and conclude information from any html file and determine what information to fill in or not to make an application.
+              (INCOMPLETE) Needs to serve the app seed ... App seed is the baremin code to stay updated while seed is cached such as index.html that never changes.
+              (INCOMPLETE) Needs to make a route for every function so the client side has access to all nodejs functionality.
+              (INCOMPLETE) Needs to build backend routes for the html file and the resources it requires.
+              (INCOMPLETE) Needs to save all resources locally incase cdns lose service.
+  (INCOMPLETE) Needs to be able to Deploy to some kind of computer that faces the internet such as cloud services              
 `);
 
 const args = process.argv.slice(2);
