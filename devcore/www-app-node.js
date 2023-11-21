@@ -109,6 +109,7 @@ console.log(`
 
   
   Features:
+  (INCOMPLETE) Needs to convert as many files possible into .wasm so compiled code can execute faster.
   (INCOMPLETE) Needs to intake an app html file and open default browser viewing it.
   (INCOMPLETE) Needs to make it so that wwwnodes have flexible role responsibilities.
   (INCOMPLETE) Needs to be able to extract and conclude information from any html file and determine what information to fill in or not to make an application.
