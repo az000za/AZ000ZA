@@ -41,20 +41,20 @@ channel link examples
     examples:
     
     www.genaiweb.com/0
-    www.channelweb.com/0/www.google.com                         opens a chat channel for www.google.com on instance 0
-    www.channelweb.com/0/www.facebook.com/about                 opens a chat channel for facebook.com/about on instance 0
-    www.channelweb.com/0/https://en.wikipedia.org/wiki/LOL      opens a chat channel for the wikipedia article lol
-    www.channelweb.com/0/
+    www.channelwebai.com/0/www.google.com                         opens a chat channel for www.google.com on instance 0
+    www.channelwebai.com/0/www.facebook.com/about                 opens a chat channel for facebook.com/about on instance 0
+    www.channelwebai.com/0/https://en.wikipedia.org/wiki/LOL      opens a chat channel for the wikipedia article lol
+    www.channelwebai.com/0/
 
 
     example: what if the url was our own site
-    www.channelweb.com/0/www.channelweb.com                     opens a sub chat channel for our site,
+    www.channelwebai.com/0/www.channelwebai.com                     opens a sub chat channel for our site,
 
     example: what if the url was our own site within our own site
-    www.channelweb.com/0/www.channelweb.com/0/www.channelweb.com        opens a sub sub chat channel for our site,
+    www.channelwebai.com/0/www.channelwebai.com/0/www.channelwebai.com        opens a sub sub chat channel for our site,
 
 
-    * our site is www.channelweb.com
+    * our site is www.channelwebai.com
     * the <urlinstanceid> allows variant owned channels of a domain
     * the <url> is any url. meaning everything on the internet is "editable"
 
