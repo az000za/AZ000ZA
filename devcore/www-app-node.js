@@ -70,7 +70,9 @@ console.log(`
   HTML can also make browsers into DOMServers that share computing power
   to all people that opt in.
   This would essentially make everything available through the internet
-  regardless giving people access to computer power.
+  regardless giving people access to opted in rentable computer power.
+  This means anyone with computers that can load html somehow
+  can be paid and be part of a more decentralized net.
   This means that the backend can get offloaded to other people.
   Maybe possibly in a decentralized and encrypted way so that people
   can't interfere or have to try really hard.
@@ -81,13 +83,17 @@ console.log(`
   turn into a serverside & client side api
   available through the router.
   This makes everything async.
-
+  This is useful because at any moment your javascript application
+  that was designed to run on one computer can now run anywhere
+  that is opted in. In this case this means your client side is capable of being
+  scaled through the shared network.
   Imagine you have the javascript code
 
     function ExampleFunction(a, b){
         this.set("result", 0);              // can get converted into a client request async function or remain local
         this.get("result").add(a ,b);       // can get converted into a client request async function or remain local
         this.get("result").multiply(a, b);  // can get converted into a client request async function or remain local
+        this.get("result").exponent(a, b);  // can get converted into a client request async function or remain local
     }
 
   
