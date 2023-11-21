@@ -33,6 +33,10 @@ console.log(`
   boom there you have it, no more complexity of dealing with low level or backend
   languages. and why do they call it node.js if you still have
   to go through a few steps to put your code on the internet.
+  The datastructure node connects to other nodes so if we make
+  an html the standard language to write nodes in then everyone
+  who can learn html a few things of html or just specialize in html
+  can make any function become a node deployed straight to the internet.
   also this encourage companies to setup dedicated apis for essential
   backend functions.
   html just needs a config form script that auto deploys everything you work on.
@@ -94,11 +98,19 @@ console.log(`
         this.get("result").add(a ,b);       // can get converted into a client request async function or remain local
         this.get("result").multiply(a, b);  // can get converted into a client request async function or remain local
         this.get("result").exponent(a, b);  // can get converted into a client request async function or remain local
+
+        // All the code will get evaluated by the wwwnode async cloud engine and get executed in an order
+        // it figures to be best. This means every function is capable of being converted into 
+        // asynchronous execution. This means the only backend I need to build well is
+        // a Hive Dispatch Router that relays commands to the wwwnodes
+        // a Data Ocean Manager
+        // a Data Ocean Manager
     }
 
   
   Features:
-  (INCOMPLETE) Needs to intake an app html file and open default browser.
+  (INCOMPLETE) Needs to intake an app html file and open default browser viewing it.
+  (INCOMPLETE) Needs to make it so that wwwnodes have flexible role responsibilities.
   (INCOMPLETE) Needs to be able to extract and conclude information from any html file and determine what information to fill in or not to make an application.
               (INCOMPLETE) Needs to serve the app seed ... App seed is the baremin code to stay updated while seed is cached such as index.html that never changes.
               (INCOMPLETE) Needs to make a route for every function so the client side has access to all nodejs functionality.
