@@ -5,6 +5,13 @@ Turns every link into a chat channel.
 Meaning all computer addresses are now channels!!!!
 This will allow anyone to talk about anything on the internet.
 This will allow people to have an AI write software for any link.
+People who opt in will be able to join the wwwnode hive
+that allows anyone to rent there machine to the wwwnode hive.
+This distributes the cloud to run on 
+a peoples browser sandboxxed environments.
+Instructions will be given to people so they can go through
+steps to run there wwwnode in a virtual machine
+on the desktop or if they have a place to run the code in.
 
 Remember all those times when many people had something
 to say about anything on the internet such as wikipedia article?
