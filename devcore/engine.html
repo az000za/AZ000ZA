@@ -2,14 +2,47 @@
   <body id="root"></body>
   <script type="text/javascript" src="./ui/data"></script>
   <script type="text/javascript" filename="Engine.js">
-    class Engine {
+    class ExeEngine {
       constructor(functions) {
         this.functions = functions;
         this.graph = createDependencyGraph(functions);
         this.visited = new Set();
         this.order = [];
+        this.eventManager = {};
+        console.log(`
+          The execution engine won't be able to soley
+          rely on an order given by a list.
+          The engine must be able to
+          introduce paths during it's execution
+          and not have data get filled up.
+        `)
+        this.odometer = {
+          cycle: iterOrder, 
+          orderN: iterOrder,
+        };
       }
-    
+      odometer(){
+        this.odometer = {
+          cycle: 0, 
+          orderN: iterOrder,
+          limit: Number.MAX_SAFE_INTEGER
+        };
+      }
+      ctrl(){
+        {
+          "start": Function,
+          "prime":Function,
+          "restart": Function,
+          "stop": Function,
+          "kill": Function,
+        }
+      }
+      mode(){
+        {
+          "async": Function,
+          "sync": Function,
+        }
+      }      
       createDependencyGraph() {
         return createDependencyGraph(this.functions);
       }
