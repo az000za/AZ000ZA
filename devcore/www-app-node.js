@@ -33,9 +33,12 @@ console.log(`
   boom there you have it, no more complexity of dealing with low level or backend
   languages. and why do they call it node.js if you still have
   to go through a few steps to put your code on the internet.
+  also this encourage companies to setup dedicated apis for essential
+  backend functions.
   html just needs a config form script that auto deploys everything you work on.
   such as 
   <script type="" src="./DeployThisApp.js"></script>
+  <img type="" src=""></img>
 
   imagine how much simpler everything would be if we could just code in html.
 
