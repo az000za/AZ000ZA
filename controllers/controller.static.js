@@ -11,7 +11,7 @@ module.exports = function Static(req, res){
                     res.end('Internal Server Error');
                     return;
                 }
-                if (fileName.includes(".js")){
+                if (fileName.includes(".html)){
                     contentType = "text/javascript";
                 } else {
                     throw new Error("file must be javascript");

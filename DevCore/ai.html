@@ -1,0 +1,103 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>ChatGPT API Chatbot</title>
+  </head>
+  <body id="root"></body>
+  <script type="text/javascript" src="./DevCore/ImportHTMLAPP.js">
+    const APPS = importHTMLAPP([
+    "./DevCore/Data.FunC.html",
+    ]);
+  </script>
+  <script type="text/javascript" filename="AI.html">
+    new DevCore().FunC(
+        class AI {
+          constructor(){
+            console.log("class AI unprogrammed");
+            /*
+                At the bareminum this will be able to run on
+                - a browser with a generic function to form UI component
+                - on node.js
+            */
+          }
+          prompt(){}
+          consensus(){}
+          socialLinker(){}
+          aiLinker(){}
+          ais=[]
+        }
+    ).Run();
+  </script>
+<body>
+    <h1>OpenAI ChatGPT API</h1>
+    <p>Enter your OpenAI API access token:</p>
+    <input type="password" id="apiTokenInput" placeholder="Your API token...">
+    <button onclick="AI.saveToken()">Save Token</button>
+
+    <div id="chat-container">
+        <!-- Display chat messages here -->
+    </div>
+    <input type="text" id="user-input" placeholder="Type your message...">
+    <button onclick="AI.sendMessage()">Send</button>
+
+    <script>
+        class AI {
+            constructor() {
+                this.apiToken = '';
+                this.promptsList = JSON.parse(localStorage.getItem('promptsList')) || [];
+            }
+
+            saveToken() {
+                this.apiToken = document.getElementById('apiTokenInput').value;
+                if (this.apiToken) {
+                    localStorage.setItem('openaiApiToken', this.apiToken);
+                    alert('API token saved successfully!');
+                } else {
+                    alert('Please enter a valid API token.');
+                }
+            }
+
+            async sendMessage() {
+                const userMessage = document.getElementById('user-input').value;
+                if (!userMessage) return;
+
+                // Save the user's prompt
+                this.promptsList.push(userMessage);
+                localStorage.setItem('promptsList', JSON.stringify(this.promptsList));
+
+                // Make an API request to OpenAI using the user's message and apiToken
+                // Example: Replace this with your actual API request
+                const aiReply = await this.getAiReply(userMessage);
+
+                // Display AI reply in the chat container
+                const aiMessage = document.createElement('div');
+                aiMessage.classList.add('ai-message');
+                aiMessage.textContent = aiReply;
+                document.getElementById('chat-container').appendChild(aiMessage);
+
+                // Clear user input
+                document.getElementById('user-input').value = '';
+            }
+
+            async getAiReply(userMessage) {
+                // Make an actual API request to OpenAI here
+                // Use this.apiToken and userMessage
+                // Return the AI reply
+                // For simplicity, I'm returning a placeholder response
+                return 'This is the AI reply.';
+            }
+        }
+
+        // Example usage: retrieve the token from local storage
+        const savedToken = localStorage.getItem('openaiApiToken');
+        const AI = new AI();
+        if (savedToken) {
+            AI.apiToken = savedToken;
+            document.getElementById('apiTokenInput').value = savedToken; // Pre-fill the input field
+        }
+    </script>
+  </body>
+</html>
+  

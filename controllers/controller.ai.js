@@ -1,5 +1,5 @@
 module.exports = function(app){
-    const Controller = require("./controller.js");
+    const Controller = require("./controller.html);
     return class AI extends Controller {
 
     }

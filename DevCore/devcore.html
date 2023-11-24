@@ -1,0 +1,95 @@
+<html>
+    <body id="root"></body>
+    <script type="text/javascript" src="./DevCore/ImportHTMLAPP.js">
+        const APPS = importHTMLAPP([
+        "./DevCore/Data.html",
+        "./DevCore/Builder.html",
+        "./DevCore/Application.html",
+        "./DevCore/API.html",
+        "./DevCore/AI.html",
+        "./DevCore/_A_L_L_.html",
+        "./DevCore/Component.html",
+        "./DevCore/Constructor.html",
+        "./DevCore/Data.FunC.html",
+        "./DevCore/Data.html",
+        "./DevCore/Engine.html",
+        "./DevCore/FrameWork.html",
+        "./DevCore/Hash-Simple.html",
+        "./DevCore/Libary.html",
+        "./DevCore/List.html",
+        "./DevCore/Module.html",
+        "./DevCore/NodeLinkedList.html",
+        "./DevCore/Operators.html",
+        "./DevCore/OperatingSystem.html",
+        "./DevCore/Param.html",
+        "./DevCore/Server.html",
+        "./DevCore/Task.html",
+        ]);
+    </script>
+    <script type="text/javascript" filename="DevCore.html">
+        class DevCore {
+            constructor(){
+                this.techstack = { // techstack means how everything is interfaced to eachother
+                    AI: function(){},
+                    _A_L_L_: function(){
+                        return new _A_L_L_();
+                    },
+                    // Param: function(){
+                    //     return new Param();
+                    // },
+                    Computer: function(){
+                        return new Computer();
+                    },
+                    OperatingSystem: function(){
+                        return new OperatingSystem();
+                    },
+                    Data: function(){
+                        return new Data();
+                    },
+                    Builder: function(){
+                        return new Builder(this);
+                    },
+                    Program: function(){
+                        return new Program(...arguments);
+                    },
+                    Engine: function(){
+                        return new Engine(...arguments);
+                    },
+                    FunC: function(){
+                        return new FunC(...arguments);
+                    },
+                    // Task: function(){
+                    //     return new Task(...arguments);
+                    // },
+                    Module: function(){
+                        return new Module();
+                    },
+                    Package: function(){
+                        return new Package();
+                    },
+                    Component: function(){
+                        return new Component();
+                    },
+                    Library: function(){
+                        return new Library();
+                    },
+                    FrameWork: function(){
+                        return new FrameWork();
+                    },
+                    Server: function(){
+                        return new Server();
+                    },
+                    API: function(){
+                        return new API();
+                    },
+                    UI: function(){
+                        // makes any function into a form
+                    },
+                    Application: function(){
+                        return new Application(...arguments);
+                    },
+                }
+            }
+        }
+    </script>
+</html>
