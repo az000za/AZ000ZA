@@ -20,22 +20,13 @@
             </script>
       </head>
       <body id="root"></body>
-      <script type="text/javascript" src="./DevCore/DevCore.html"></script>
-      <script type="text/javascript" src="./ui/ui-node.js"></script>
-      <script type="text/javascript" src="./ui/ui-node-manager.js"></script>
-      <script type="text/javascript" src="./ui/chat-bubble.js"></script>
-      <script type="text/javascript" src="./ui/chat-window.js"></script>
-      <script type="text/javascript" src="./ui/chat-console.js"></script>
-      <script type="text/javascript" src="./ui/chat-nav-list.js"></script>
-      <script type="text/javascript" src="./ui/chat-console-header.js"></script>
-      <script type="text/javascript" src="./ui/chat-console-msgs.js"></script>
-      <script type="text/javascript" src="./ui/chat-console-dynamicForms.js"></script>
-      <script type="text/javascript" src="./ui/seed.js"></script>
-      <script type="text/javascript" src="./ui/route.js"></script>
-      <script type="text/javascript" src="./ui/routes.js"></script>
-      <script type="text/javascript" src="./ui/router.js"></script>
+      <script type="text/javascript" src="./DevCore/ImportHTMLAPP.js">
+        const WEBAPPS = importHTMLAPP([
+        "./DevCore/Data.html"+"?"+"args",
+        ]);
+      </script>
       <script type="text/javascript" filename="app.ChannelWeb.html">
-        new DevCore()
+        WEBAPPs.DevCore()
             .Application(
                 {
                     "name": "ChannelWeb",
@@ -45,7 +36,7 @@
                     "author": "Devon Houghton <1.a.b.c.0.0.0.x.y.z.1@gmail.com>",
                     "license": "none",
                     "main": "app.ChannelWebAI.html",
-                    "files": ["index.js", "README.md"],
+                    "files": ["index.html", "README.md"],
                     "scripts": {
                       "test": "mocha",
                       "start": "wwwnode app.ChannelWebAI.html",
@@ -57,6 +48,25 @@
                     "dependencies": {},
                     "devDependencies": {},
                   }
-            ).run();
+            )
+            .addComponents(
+              "./ui/ui-node.html",
+              "./ui/ui-node-manager.html",
+              "./ui/chat-bubble.html",
+              "./ui/chat-window.html",
+              "./ui/chat-console.html",
+              "./ui/chat-nav-list.html",
+              "./ui/chat-console-header.html",
+              "./ui/chat-console-msgs.html",
+              "./ui/chat-console-dynamicForms.html",
+              "./ui/seed.html",
+              "./ui/route.html",
+              "./ui/routes.html",
+              "./ui/router.html",
+              "./app.invitepeers.html",
+              "./app.wasmcompile.html",
+              "./app.browsergitupdate.html",
+            )
+            .run();
       </script>
 </html>

@@ -101,3 +101,28 @@ GET SOCIALLY LINKED WITH ANY SPECIALIZED AI ON ANY PROMPT
                 -- Make customizable instances of the web.
 
 
+
+
+SPECIAL INSTRUCTIONS
+
+    The entire application is written in html as html
+    is the end goal language besides natural language
+    so we might as well write everything in html
+    as html is basic and can hold other languages in it and
+    the browser runs everything
+    ChannelWeb was written to be web hosted by the browsers
+    instead of the traditional cloud.
+    The browsers are now servers.
+    GitHub pages is the initial server where the
+    site is hosted. Afterwards it is served from the loaded
+    html page and will continue to migrate.
+    The entire application is an invite only.
+    The application will copy itself to someone and be sent
+    to them somehow with access to peer connections.
+
+    Person A sends Copy to Person B.
+
+
+    How does someone make an account
+    and have all there data saved and retrieved?
+    
