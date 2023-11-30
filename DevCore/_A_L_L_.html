@@ -1,11 +1,7 @@
 <html>
     <body id="root"></body>
-    <script type="text/javascript" src="./DevCore/ImportHTMLAPP.js">
-      const APPS = importHTMLAPP([
-      "./DevCore/Data.html"
-    ]);
-  </script>
-    <script type="text/javascript" filename="_A_L_L_.html"></script>
+    <script type="text/javascript" src="./ui/Data.js"></script>
+    <script type="text/javascript" filename="_A_L_L_.js"></script>
         class _A_L_L_ { // AlgoLinkLoop
             // input = {
           
@@ -103,7 +99,7 @@
                     skip:1,
               };
               // funCLooper:
-              const operators = require("./operators.html);
+              const operators = require("./operators.js");
               for (let funCName in operators) {
                 // paramLooper:
                   const funC = operators[funCName];
