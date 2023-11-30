@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <body id="root"></body>
+        <script type="text/javascript" filename="app.RoRouteToWebRTC.html">
+            // Create a new RTCPeerConnection
+            const pc = new RTCPeerConnection();
+            // Listen for ICE candidates and send them to the interceptor
+            pc.onicecandidate = (event) => {
+                if (event.candidate) {
+                    sendICECandidateToInterceptor(event.candidate);
+                }
+            };
+            // Listen for data channels and handle incoming messages
+            pc.ondatachannel = (event) => {
+                const dataChannel = event.channel;
+                dataChannel.onmessage = (event) => {
+                    handleMessage(event.data);
+                };
+            };
+        </script>
+        <script type="text/javascript">
+            // Intercept all network requests and create WebRTC data channels for each request
+            const originalXHR = XMLHttpRequest.prototype.open;
+            XMLHttpRequest.prototype.open = function () {
+                const url = arguments[1];
+                const method = arguments[0];
+
+                // Create a new data channel for this request
+                const dataChannel = pc.createDataChannel(url);
+
+                // Send an offer to the interceptor
+                pc.createOffer().then(offer => {
+                    pc.setLocalDescription(offer);
+                    sendOfferToInterceptor(offer);
+                });
+
+                // Override the original open method and send the request through the data channel
+                originalXHR.apply(this, arguments);
+
+                // Listen for data channel messages and handle the response
+                dataChannel.onmessage = (event) => {
+                    const response = JSON.parse(event.data);
+                    handleResponse(response);
+                };
+            };
+        </script>
+        <script type="text/javascript">            
+            // Intercept all fetch requests and create WebRTC data channels for each request
+            const originalFetch = fetch;
+            fetch = async (url, options) => {
+                // Create a new data channel for this request
+                const dataChannel = pc.createDataChannel(url);
+
+                // Send an offer to the interceptor
+                pc.createOffer().then(offer => {
+                    pc.setLocalDescription(offer);
+                    sendOfferToInterceptor(offer);
+                });
+
+                // Send the fetch request through the data channel
+                const request = {
+                    url,
+                    options,
+                };
+                dataChannel.send(JSON.stringify(request));
+                // Listen for data channel messages and handle the response
+                const responsePromise = new Promise((resolve, reject) => {
+                    dataChannel.onmessage = (event) => {
+                    const response = JSON.parse(event.data);
+                    if (response.error) {
+                        reject(new Error(response.error));
+                    } else {
+                        resolve(new Response(response.body, response.headers));
+                    }
+                    };
+                });
+                return await responsePromise;
+            };
+        </script>
+    </head>
+</html>

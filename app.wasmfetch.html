@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebAssembly Example</title>
 </head>
-<body id="root">
-    <!-- Your HTML content here -->
-</body>
-<script>
+<body id="root"></body>
+<script type="text/javascript" filename="app.wasmfetch.html">
   // Fetch the WebAssembly module and instantiate it
   WebAssembly.instantiateStreaming(fetch("my_module.wasm"), importObject)
       .then((results) => {

@@ -3,8 +3,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>ChannelWeb</title>
-            <meta name="description" content="A brief description of my web page.">
-            
+            <meta name="description" content="A brief description of my web page.">            
             <meta property="og:title" content="ChannelWebAI">
             <meta property="og:description" content="ChannelWeb yeaaa">
             <meta property="og:image" content="image.jpg">
@@ -20,13 +19,29 @@
             </script>
       </head>
       <body id="root"></body>
-      <script type="text/javascript" src="./DevCore/ImportHTMLAPP.js">
-        const WEBAPPS = importHTMLAPP([
-        "./DevCore/Data.html"+"?"+"args",
-        ]);
-      </script>
+      <script type="text/javascript" src="./DevCore/ImportHTMLAPP.js"></script>
       <script type="text/javascript" filename="app.ChannelWeb.html">
-        WEBAPPs.DevCore()
+        const WEBAPPS = importHTMLAPP([
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/app.PeerNet.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/./DevCore/DevCore.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/ui-node.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/ui-node-manager.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/chat-bubble.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/chat-window.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/chat-console.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/chat-nav-list.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/chat-console-header.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/chat-console-msgs.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/chat-console-dynamicForms.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/seed.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/route.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/routes.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/ui/router.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/app.invitepeers.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/app.wasmcompile.html",
+          "file:///C:/Users/yjvyr/Downloads/ChannelWebAI-0.0.8/ChannelWebAI-0.0.8/app.browsergitupdate.html",
+        ]);
+        WEBAPPS.DevCore()
             .Application(
                 {
                     "name": "ChannelWeb",
@@ -49,24 +64,7 @@
                     "devDependencies": {},
                   }
             )
-            .addComponents(
-              "./ui/ui-node.html",
-              "./ui/ui-node-manager.html",
-              "./ui/chat-bubble.html",
-              "./ui/chat-window.html",
-              "./ui/chat-console.html",
-              "./ui/chat-nav-list.html",
-              "./ui/chat-console-header.html",
-              "./ui/chat-console-msgs.html",
-              "./ui/chat-console-dynamicForms.html",
-              "./ui/seed.html",
-              "./ui/route.html",
-              "./ui/routes.html",
-              "./ui/router.html",
-              "./app.invitepeers.html",
-              "./app.wasmcompile.html",
-              "./app.browsergitupdate.html",
-            )
+            .addComponents(WEBAPPS)
             .run();
       </script>
 </html>

@@ -1,0 +1,102 @@
+<html>
+    <head></head>
+    <body id="root"></body>
+    <script type="text/javascript" src="./DevCore/"></script>
+    <script type="text/javascript" filename="app.browsergitupdate.html">
+        const fetch = require('node-fetch'); // You can use 'isomorphic-fetch' for browser-based code
+        // Replace with your GitHub credentials and repository details
+        const owner = 'your-username';
+        const repo = 'your-repo';
+        const branch = 'main'; // Or any other branch name
+        const token = 'your-personal-access-token'; // Generate one in your GitHub account settings
+        // Get the last commit SHA of the branch
+        async function getLastCommitSHA() {
+            const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/branches/${branch}`);
+            const data = await response.json();
+            return data.commit.sha;
+        }
+        // Create a new blob for a file
+        async function createBlob(content) {
+            const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/blobs`, {
+                method: 'POST',
+                headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                content: Buffer.from(content).toString('base64'),
+                    encoding: 'base64',
+                }),
+            });
+            const data = await response.json();
+            return data.sha;
+        }
+        // Create a new tree with the blob
+        async function createTree(blobSHA) {
+        const baseTreeSHA = await getLastCommitSHA();
+        const tree = [
+            {
+            path: 'path/to/your/file.txt',
+            mode: '100644', // File mode
+            type: 'blob',
+            sha: blobSHA,
+            },
+        ];
+        const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees`, {
+            method: 'POST',
+            headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            base_tree: baseTreeSHA,
+            tree,
+            }),
+        });
+        const data = await response.json();
+        return data.sha;
+        }
+        // Create a new commit
+        async function createCommit(treeSHA) {
+            const lastCommitSHA = await getLastCommitSHA();
+            const message = 'Your commit message here';
+            const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/commits`, {
+                method: 'POST',
+                headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                message,
+                tree: treeSHA,
+                parents: [lastCommitSHA],
+                }),
+            });
+            const data = await response.json();
+            return data.sha;
+        }
+        // Update the branch reference
+        async function updateBranch(commitSHA) {
+            await fetch(`https://api.github.com/repos/${owner}/${repo}/git/refs/heads/${branch}`, {
+                method: 'PATCH',
+                headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                sha: commitSHA,
+                }),
+            });
+        }
+        // Main function to create a new commit and update the branch
+        async function main() {
+            const content = 'Your file content here';
+            const blobSHA = await createBlob(content);
+            const treeSHA = await createTree(blobSHA);
+            const commitSHA = await createCommit(treeSHA);
+            await updateBranch(commitSHA);
+            console.log('New commit created and pushed successfully!');
+        }
+        main();
+    </script>
+</html>

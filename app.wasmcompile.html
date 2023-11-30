@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Self-Compiling WebAssembly</title>
 </head>
-<body>
+<body id="root">
     <h1>Self-Compiling WebAssembly</h1>
     <button onclick="runWasm()">Run JavaScript to Wasm</button>
-    <script>
+</body>
+<script type="text/javascript" filename="app.wasmcompile.html">
         // Define a simple function in JavaScript
         function add(a, b) {
             return a + b;
@@ -27,6 +28,6 @@
                 console.log(`Result of adding 2 and 3: ${result}`);
             };
         });
-    </script>
+</script>
 </body>
 </html>
