@@ -3,8 +3,8 @@
   "name": "Your Extension Name",
   "version": "1.0",
   "permissions": [
-    "storage", // Permission for using the Storage API
-    "unlimitedStorage" // Permission for unlimited storage in chrome.storage
+    "storage", 
+    "unlimitedStorage"
   ],
   "content_scripts": [
     {
@@ -15,5 +15,4 @@
   "background": {
     "service_worker": "background.js"
   },
-  // ... other extension configurations
 }
