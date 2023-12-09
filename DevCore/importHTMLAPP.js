@@ -48,20 +48,16 @@ function importHTMLAPP(filePaths) {
           const body = doc.body.cloneNode(true);
           console.log("imported ", filePath);
           console.log(html);
-
           const AppName = fileName.split(".").slice().shift();
           const scriptTags = doc.querySelectorAll('script');
           const styleTags = doc.querySelectorAll('style');
-  
           const css = styleTags;
           const javascript = scriptTags;
-        
-          
           scriptTags.forEach((scriptTag, index) => {
             console.log(`Script ${index + 1}:`);
             console.log(scriptTag.textContent); // Extract the JavaScript code
           });
-
+          console.log("AppName",AppName);
           Apps[AppName] = function(){                        
             return new class _ {
               peerID = 0;  // needs to generated
