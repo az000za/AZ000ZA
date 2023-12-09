@@ -35,7 +35,7 @@ function importHTMLAPP(filePaths) {
       and only be able to communicate to eachother with webrtc
       through the ui node manager.
   `);
-  const Apps = {};
+  const Apps = {};  
     for (const filePath of filePaths) {
       const fileName = document.URL.split('/').pop();
       const url = filePath;
@@ -52,6 +52,16 @@ function importHTMLAPP(filePaths) {
           console.log(html);
 
           const AppName = fileName.split(".").slice().shift();
+  
+          const css = css;
+          const javascript = javascript;
+        
+          const scriptTags = doc.querySelectorAll('script');
+          
+          scriptTags.forEach((scriptTag, index) => {
+            console.log(`Script ${index + 1}:`);
+            console.log(scriptTag.textContent); // Extract the JavaScript code
+          });
 
           Apps[AppName] = function(){                        
             return new class _ {
