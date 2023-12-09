@@ -35,7 +35,7 @@ function importHTMLAPP(filePaths) {
   `);
   const Apps = {};  
     for (const filePath of filePaths) {
-      const fileName = document.URL.split('/').pop();
+      const fileName = filePath.split('/').pop();
       const url = filePath;
       fetch(url, {
         mode: "no-cors"
