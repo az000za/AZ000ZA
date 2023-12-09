@@ -35,13 +35,14 @@ function importHTMLAPP(filePaths) {
   `);
   const Apps = {};  
     for (const filePath of filePaths) {
-      const fileName = filePath.split('/').pop();
-      const url = filePath;
       fetch(url, {
         mode: "no-cors"
       })
       .then(response => response.text())
       .then(data => {        
+          const url = filePath;
+          const fileName = filePath.slice().split('/').pop();
+        
           const html = data;
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
