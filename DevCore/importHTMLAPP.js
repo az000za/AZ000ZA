@@ -4,8 +4,7 @@ function importHTMLAPP(filePaths) {
       function ImportHTMLAPP 
 
       ** gets the file somehow.
-      ** converts it into a useable useable component.
-
+      ** converts it into a useable html component.
 
       returns file name as accessible property
 
@@ -13,7 +12,6 @@ function importHTMLAPP(filePaths) {
 
       ./hello.js
       ./goodbye.js
-
 
       WebApps.hello(<class constructor params>);
 
@@ -35,39 +33,58 @@ function importHTMLAPP(filePaths) {
       and only be able to communicate to eachother with webrtc
       through the ui node manager.
   `);
-  const Apps = {};
+  const Apps = {};  
     for (const filePath of filePaths) {
-      // const xhr = new XMLHttpRequest();
-      // xhr.open('GET', filePath, true);
-      // xhr.onload = function() {
-      //   if (xhr.status === 200) {
-      //     const html = xhr.responseText;
-      //     const parser = new DOMParser();
-      //     const doc = parser.parseFromString(html, 'text/html');
-      //     const body = doc.body.cloneNode(true);
-      //     document.body.appendChild(body);
-
-      //     console.log("imported ", filePath);
-      //     console.log(html);
-
-      //     Apps[AppName] = function(){
-      //       return html;
-      //     }
-
-      //   } else {
-      //     console.error('Error importing HTML file:', filePath);
-      //   }
-      // };
-      // xhr.send();
-      // const fileName = document.URL.split('/').pop();
-      // alert(fileName);
+      const fileName = document.URL.split('/').pop();
       const url = filePath;
       fetch(url, {
         mode: "no-cors"
       })
       .then(response => response.text())
-      .then(data => console.log('data', data))
-      .catch(error => console.error(error));
+      .then(data => {        
+          const html = data;
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const body = doc.body.cloneNode(true);
+          console.log("imported ", filePath);
+          console.log(html);
+
+          const AppName = fileName.split(".").slice().shift();
+          const scriptTags = doc.querySelectorAll('script');
+          const styleTags = doc.querySelectorAll('style');
+  
+          const css = styleTags;
+          const javascript = scriptTags;
+        
+          
+          scriptTags.forEach((scriptTag, index) => {
+            console.log(`Script ${index + 1}:`);
+            console.log(scriptTag.textContent); // Extract the JavaScript code
+          });
+
+          Apps[AppName] = function(){                        
+            return new class _ {
+              peerID = 0;  // needs to generated
+              html = html;
+              css = css;
+              javascript = javascript;
+              constructor(){
+                
+              }
+              renderGenericUI(){
+                console.error("renderGenericUI unprogrammed");
+              }
+              renderCustomUI(){
+                console.error("renderCustomUI unprogrammed");
+              }
+              update(){
+                console.error("update unprogrammed");
+              }
+            }
+          }
+        
+      })
+      .catch(error => console.error('Error importing HTML file:', filePath));
     }
     return Apps;
   }
