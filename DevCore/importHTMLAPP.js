@@ -4,8 +4,7 @@ function importHTMLAPP(filePaths) {
       function ImportHTMLAPP 
 
       ** gets the file somehow.
-      ** converts it into a useable useable component.
-
+      ** converts it into a useable html component.
 
       returns file name as accessible property
 
@@ -13,7 +12,6 @@ function importHTMLAPP(filePaths) {
 
       ./hello.js
       ./goodbye.js
-
 
       WebApps.hello(<class constructor params>);
 
@@ -52,11 +50,12 @@ function importHTMLAPP(filePaths) {
           console.log(html);
 
           const AppName = fileName.split(".").slice().shift();
-  
-          const css = css;
-          const javascript = javascript;
-        
           const scriptTags = doc.querySelectorAll('script');
+          const styleTags = doc.querySelectorAll('style');
+  
+          const css = styleTags;
+          const javascript = scriptTags;
+        
           
           scriptTags.forEach((scriptTag, index) => {
             console.log(`Script ${index + 1}:`);
