@@ -5,7 +5,7 @@ chat channel with people and AI.
 It's a social media first approach 
 to work on anything for the computer.
 
-[ChatOnChannelWeb](https://az000za.github.io/AZ000ZA/app.ChannelWebAI.html)
+[ChatOnChannelWeb](https://az000za.github.io/AZ000ZA/ChannelWebAI.html)
 
 
-[HostChannelWeb](https://az000za.github.io/AZ000ZA/app.PeerNet.html)
+[HostChannelWeb](https://az000za.github.io/AZ000ZA/PeerNet.html)

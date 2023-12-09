@@ -20,9 +20,9 @@
       </head>
       <body id="root"></body>
       <script type="text/javascript" src="https://az000za.github.io/AZ000ZA/DevCore/importHTMLAPP.js"></script>
-      <script type="text/javascript" filename="app.ChannelWeb.html">
+      <script type="text/javascript" filename="ChannelWeb.html">
         const WEBAPPS = importHTMLAPP([
-          "https://az000za.github.io/AZ000ZA/app.PeerNet.html",
+          "https://az000za.github.io/AZ000ZA/PeerNet.html",
           "https://az000za.github.io/AZ000ZA/DevCore/DevCore.html",
           "https://az000za.github.io/AZ000ZA/ui/ui-node.html",
           "https://az000za.github.io/AZ000ZA/ui/ui-node-manager.html",
@@ -37,9 +37,9 @@
           "https://az000za.github.io/AZ000ZA/ui/route.html",
           "https://az000za.github.io/AZ000ZA/ui/routes.html",
           "https://az000za.github.io/AZ000ZA/ui/router.html",
-          "https://az000za.github.io/AZ000ZA/app.invitepeers.html",
-          "https://az000za.github.io/AZ000ZA/app.wasmcompile.html",
-          "https://az000za.github.io/AZ000ZA/app.browsergitupdate.html",
+          "https://az000za.github.io/AZ000ZA/invitepeers.html",
+          "https://az000za.github.io/AZ000ZA/wasmcompile.html",
+          "https://az000za.github.io/AZ000ZA/browsergitupdate.html",
         ]);
         WEBAPPS.DevCore()
             .Application(
@@ -54,7 +54,7 @@
                     "files": ["index.html", "README.md"],
                     "scripts": {
                       "test": "mocha",
-                      "start": "wwwnode app.ChannelWebAI.html",
+                      "start": "wwwnode ChannelWebAI.html",
                     },
                     "repository": {
                       "type": "git",
