@@ -39,7 +39,8 @@
           "https://az000za.github.io/Chat/seed.html",
           "https://az000za.github.io/WASM/compile.html",
           "https://az000za.github.io/WASM/fetch.html"
-        ]).useAPP("DevCore")
+        ]).then((_this_)=>{
+            _this_.useAPP("DevCore")
             .Application(
                 {
                     "name": "ChannelWeb",
@@ -64,5 +65,6 @@
             )
             .addComponents(WEBAPPS)
             .run();
+      });
       </script>
 </html>
