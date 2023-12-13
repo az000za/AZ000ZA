@@ -21,7 +21,7 @@
       <body id="root"></body>
       <script type="text/javascript" src="https://az000za.github.io/WEBAPPS/WEBAPPS.js"></script>
       <script type="text/javascript" filename="ChannelWeb.html">
-        new WEBAPPS([
+        new WEBAPPS().fetchAPPS([
           "https://az000za.github.io/AZ000ZA/routes.html",
           "https://az000za.github.io/DevCore/DevCore.html",
           "https://az000za.github.io/PeerNetBrowser/PeerNet.html",
@@ -39,7 +39,8 @@
           "https://az000za.github.io/Chat/seed.html",
           "https://az000za.github.io/WASM/compile.html",
           "https://az000za.github.io/WASM/fetch.html"
-        ]).useAPP("DevCore")
+        ]).then((_this_)=>{
+            _this_.useAPP("DevCore")
             .Application(
                 {
                     "name": "ChannelWeb",
@@ -64,5 +65,6 @@
             )
             .addComponents(WEBAPPS)
             .run();
+      });
       </script>
 </html>
