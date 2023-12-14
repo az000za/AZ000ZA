@@ -23,30 +23,32 @@
         ]).then((_this_)=>{
             console.log("DevCore APP", _this_);
             _this_.useAPP("DevCore")
-            .Application(
-                {
-                    "name": "ChannelWeb",
-                    "version": "1.0.0",
-                    "description": "Turn every url into a chat channel powered by AI",
-                    "keywords": ["awesome", "great", "package"],
-                    "author": "Devon Houghton <1.a.b.c.0.0.0.x.y.z.1@gmail.com>",
-                    "license": "none",
-                    "main": "app.ChannelWebAI.html",
-                    "files": ["index.html", "README.md"],
-                    "scripts": {
-                      "test": "mocha",
-                      "start": "wwwnode ChannelWebAI.html",
-                    },
-                    "repository": {
-                      "type": "git",
-                      "url": "https://github.com/az000za/ChannelWebAI.html"
-                    },
-                    "dependencies": {},
-                    "devDependencies": {},
-                  }
-            )
-            .addComponents(WEBAPPS)
-            .run();
+            .then((DevCore)=>{
+                  DevCore.Application(
+                      {
+                          "name": "ChannelWeb",
+                          "version": "1.0.0",
+                          "description": "Turn every url into a chat channel powered by AI",
+                          "keywords": ["awesome", "great", "package"],
+                          "author": "Devon Houghton <1.a.b.c.0.0.0.x.y.z.1@gmail.com>",
+                          "license": "none",
+                          "main": "app.ChannelWebAI.html",
+                          "files": ["index.html", "README.md"],
+                          "scripts": {
+                            "test": "mocha",
+                            "start": "wwwnode ChannelWebAI.html",
+                          },
+                          "repository": {
+                            "type": "git",
+                            "url": "https://github.com/az000za/ChannelWebAI.html"
+                          },
+                          "dependencies": {},
+                          "devDependencies": {},
+                        }
+                  )
+                  .addComponents(WEBAPPS)
+                  .run();
+        })
       });
       </script>
 </html>
