@@ -24,7 +24,9 @@
             console.log("DevCore APP", _this_);
             _this_.useAPP("DevCore")
             .then((DevCore)=>{
-                  DevCore.Application(
+                  const instance = new DevCore();
+                  console.log("instance", instance);
+                  instance.Application(
                       {
                           "name": "ChannelWeb",
                           "version": "1.0.0",
